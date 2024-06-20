@@ -29,8 +29,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::loadpictures()
 {
-    QString filePath = QFileDialog::getOpenFileName(this, tr("Open Image"), "", tr("Image Files (*.png *.jpg *.bmp)"));
-    QPixmap pixmap(filePath); // Pfad zum Bild anpassen
+    QString filePath = ":/bilder/hauptfenster.jpg";
+    QPixmap pixmap(filePath);
     ui->mainpicture->setPixmap(pixmap);
 }
 
