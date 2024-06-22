@@ -10,7 +10,9 @@ class movie : public QObject
 public:
     //Constructor
     movie(QString title,QString genre,int duration,QString description,
-        QString rating,int grade,int release,QString producer);
+        QString rating,int grade,int release,QString producer,QString url);
+
+    movie(QString title);
 
     //getter
     QString gettitle() { return _title; }
@@ -21,6 +23,7 @@ public:
     QString getgenre() { return _genre; }
     int getrelease() { return _release; }
     QString getproducer() { return _producer; }
+    QString geturl() { return _url; }
 
     // setter
     void settitle(QString newtitle) {_title = newtitle;}
@@ -41,6 +44,7 @@ private:
     QString _genre;
     int _release;
     QString _producer;
+    QString _url;
 };
 
 

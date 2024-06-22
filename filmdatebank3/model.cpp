@@ -28,7 +28,7 @@ void model::connectionbuild(QSqlDatabase* db)
         qDebug() << "Connection successfull";
     }
 }
-
+/*
 void model::customquery(QString Filmreihe,QSqlDatabase* db,QList<QString>* stringList)
 {
     qDebug() <<"customquery started";
@@ -62,7 +62,7 @@ void model::customquery(QString Filmreihe,QSqlDatabase* db,QList<QString>* strin
     getFilmreihe.finish();
     qDebug()<<"customquery finished";
 }
-
+*/
 void model::preselectionquery(QString film,QSqlDatabase* db)
 {
     QSqlQuery getfilmdata(*db);
@@ -83,9 +83,7 @@ void model::preselectionquery(QString film,QSqlDatabase* db)
     }
     while (getfilmdata.next())
     {
-        movie* m = new movie(getfilmdata.value(2).toString(),0,getfilmdata.value(3).toInt(),getfilmdata.value(6).toString(),0
-            ,0,getfilmdata.value(4).toInt(),getfilmdata.value(5).toString());
-
+        movie* m = new movie(getfilmdata.value(3).toString());
         _controller->addmovie(m);
     }
     getfilmdata.finish();
@@ -94,7 +92,6 @@ void model::preselectionquery(QString film,QSqlDatabase* db)
 
 void model::getfilmdataquery(QString filmname,QSqlDatabase* db)
 {
-    //Prepared Statement
     QSqlQuery getfilmdata(*db);
     if(!getfilmdata.prepare("\
     SELECT *\
@@ -111,53 +108,77 @@ void model::getfilmdataquery(QString filmname,QSqlDatabase* db)
         exit(1);
     }
 
-    // Cursor durchlaufen
-
-    //controller.clearcache();
     while (getfilmdata.next())
     {
-        movie* m = new movie(getfilmdata.value(2).toString(),0,getfilmdata.value(3).toInt(),getfilmdata.value(6).toString(),0
-                         ,0,getfilmdata.value(4).toInt(),getfilmdata.value(5).toString());
+        movie* m = new movie(getfilmdata.value(3).toString(),0,getfilmdata.value(4).toInt(),getfilmdata.value(7).toString(),0
+            ,0,getfilmdata.value(5).toInt(),getfilmdata.value(6).toString(),getfilmdata.value(2).toString());
 
         _controller->addmovie(m);
     }
     getfilmdata.finish();
     qDebug()<<"getfilmdataquery finished";
-
-    //signal..
 }
 
-/*
-void model::getdescriptionQuery(QString Filminput,QSqlDatabase* db)
+void model::getactorquery(QString filmname,QSqlDatabase* db)
 {
-    //Prepared Statement
-    QSqlQuery getfilmdescription(*db);
-    if(!getfilmdescription.prepare("\
-    SELECT *\
-    FROM Film\
-    WHERE Name = :filmname\
-    ")) {
-    qDebug() << "Prepare failed: " << getfilmdescription.lastError().text();
+    QSqlQuery getactordata(*db);
+    if(!getactordata.prepare("\
+    Select schauspieler.name,schauspieler.url\
+    FROM Schauspieler\
+    JOIN filmschauspielerzuordnung ON schauspieler.schauspielerid = filmschauspielerzuordnung.schauspielerid\
+    JOIN film ON filmschauspielerzuordnung.filmid = film.filmid\
+    WHERE film.name = :filmname\
+    ")){
+    qDebug() <<"Prepare failed: " << getactordata.lastError().text();
     exit(1);
     }
-    getfilmdescription.bindValue(":filmname", Filminput);
+    getactordata.bindValue(":filmname",filmname);
 
-    if (!getfilmdescription.exec()){
-        qDebug() << "Execute failed: " << getfilmdescription.lastError().text();
-        exit(1);
+    if (!getactordata.exec()){
+       qDebug() << "Execute failed: "<< getactordata.lastError().text();
+       exit(1);
     }
 
-    // Cursor durchlaufen
-    while (getfilmdescription.next()) {
-        QString Name = getfilmdescription.value(0).toString();
-        QString Beschreibung = getfilmdescription.value(1).toString();
+    while (getactordata.next())
+    {
+        qDebug() << getactordata.value(0).toString();
 
-        Datamodel data(name,description,dauer,leihbar,kaufbar);
-        stringList->append(Name);
-        //qDebug() <<"FilmName: " << Name;
+        actor* a = new actor(getactordata.value(0).toString(),getactordata.value(1).toString());
+        _controller->addactor(a);
     }
-
-    getfilmdescription.finish();
-    qDebug()<<"customquery finished";
+    getactordata.finish();
+    qDebug()<<"getactorquery finished";
 }
-                         */
+
+void model::getproviderquery(QString filmname,QSqlDatabase* db)
+{
+    QSqlQuery getproviderdata(*db);
+    if(!getproviderdata.prepare("\
+    Select anbieter.name,anbieter.url\
+    FROM anbieter\
+    JOIN filmanbieterzuordnung ON anbieter.anbieterid = filmanbieterzuordnung.anbieterid\
+    JOIN film ON filmanbieterzuordnung.filmid = film.filmid\
+    WHERE film.name = :filmname\
+    ")){
+    qDebug() <<"Prepare failed: " << getproviderdata.lastError().text();
+    exit(1);
+    }
+    getproviderdata.bindValue(":filmname",filmname);
+
+    if (!getproviderdata.exec()){
+    qDebug() << "Execute failed: "<< getproviderdata.lastError().text();
+    exit(1);
+    }
+
+    while (getproviderdata.next())
+    {
+    qDebug() << getproviderdata.value(0).toString();
+
+    provider* p = new provider(getactordata.value(0).toString(),getactordata.value(1).toString());
+    _controller->addprovider(p);
+    }
+    getproviderdata.finish();
+    qDebug()<<"getactorquery finished";
+
+
+}

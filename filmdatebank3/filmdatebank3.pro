@@ -19,17 +19,21 @@ win32: {
 }
 
 SOURCES += \
+    actor.cpp \
     controller.cpp \
     main.cpp \
     mainwindow.cpp \
     model.cpp \
-    movie.cpp
+    movie.cpp \
+    provider.cpp
 
 HEADERS += \
+    actor.h \
     controller.h \
     mainwindow.h \
     model.h \
-    movie.h
+    movie.h \
+    provider.h
 
 FORMS += \
     mainwindow.ui

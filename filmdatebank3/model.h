@@ -15,10 +15,10 @@ public:
     void connectionbuild(QSqlDatabase* db);
     void customquery(QString Filmname, QSqlDatabase* db, QList<QString> *stringList);
 
-    void getdescriptionQuery(QString Filminput,QSqlDatabase* db,QList<QString>* stringList);
-
-    void getfilmdataquery(QString filmname,QSqlDatabase* db);
     void preselectionquery(QString film,QSqlDatabase* db);
+    void getfilmdataquery(QString filmname,QSqlDatabase* db);
+    void getactorquery(QString filmname,QSqlDatabase* db);
+    void getproviderquery(QString filmname,QSqlDatabase* db);
 
 private:
 

@@ -32,10 +32,10 @@ private:
 
     void connectdb();
     void actions();
-    void showresultsinwindow(QList<QString> *stringList);
     void showfilmdata();
+    void showactordata();
     void getfilmdataquery();
-    void loadpictures();
+    void loadcovers(QString fileName);
     void preselection();
     void showpreselection();
     void listitemclicked(QListWidgetItem *item);
@@ -43,5 +43,6 @@ private:
     void setuplistwidget();
     void positionlistwidget();
     void updatefilminputborder(bool showBottomBorder);
+    void setpixmaptolabelsize(QPixmap &pixmap);
 };
 #endif // MAINWINDOW_H
