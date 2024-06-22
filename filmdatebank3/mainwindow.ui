@@ -74,10 +74,10 @@ color:rgb(255, 255, 255);
      <widget class="QFrame" name="frame_8">
       <property name="geometry">
        <rect>
-        <x>460</x>
-        <y>50</y>
+        <x>440</x>
+        <y>70</y>
         <width>509</width>
-        <height>261</height>
+        <height>161</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -98,22 +98,22 @@ color:rgb(255, 255, 255);
          <property name="styleSheet">
           <string notr="true">QLineEdit{
 border: 2px solid rgb(37,39,48);
-border-radius: 20px;
-color: #FFF;
+border-radius: 10px;
+color: rgb(26, 26, 26);
 padding-left: 20px;
 padding-right:20px;
-background-color:rgb(34,36,44);
+background-color:rgb(255, 255, 255);
 height: 40px;
-width: 40px;s
+width: 40px;
+border-bottom: 2px solid rgb(37,39,48);
+border-bottom-left-radius: 10px; 
+border-bottom-right-radius: 10px;
 }</string>
          </property>
          <property name="placeholderText">
           <string>Filme Durchsuchen</string>
          </property>
         </widget>
-       </item>
-       <item>
-        <widget class="QListWidget" name="listWidget"/>
        </item>
        <item>
         <widget class="QFrame" name="frame_11">
@@ -142,207 +142,6 @@ width: 40px;s
         </widget>
        </item>
        <item>
-        <widget class="QFrame" name="frame_4">
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QFrame" name="frame">
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout">
-             <item>
-              <widget class="QLineEdit" name="FilmInputLine">
-               <property name="minimumSize">
-                <size>
-                 <width>100</width>
-                 <height>20</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QLineEdit{
-border: 2px solid rgb(37,39,48);
-border-radius: 20px;
-color: #FFF;
-padding-left: 20px;
-padding-right:20px;
-background-color:rgb(34,36,44);
-height: 20px;
-width: 20px;s
-}</string>
-               </property>
-               <property name="placeholderText">
-                <string>Schauspieler</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="FilmInputLine_4">
-               <property name="minimumSize">
-                <size>
-                 <width>100</width>
-                 <height>20</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QLineEdit{
-border: 2px solid rgb(37,39,48);
-border-radius: 20px;
-color: #FFF;
-padding-left: 20px;
-padding-right:20px;
-background-color:rgb(34,36,44);
-height: 20px;
-width: 20px;s
-}</string>
-               </property>
-               <property name="placeholderText">
-                <string>Schauspieler</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QFrame" name="frame_3">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_3">
-             <item>
-              <widget class="QLineEdit" name="FilmInputLine_7">
-               <property name="minimumSize">
-                <size>
-                 <width>100</width>
-                 <height>20</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QLineEdit{
-border: 2px solid rgb(37,39,48);
-border-radius: 20px;
-color: #FFF;
-padding-left: 20px;
-padding-right:20px;
-background-color:rgb(34,36,44);
-height: 20px;
-width: 20px;s
-}</string>
-               </property>
-               <property name="placeholderText">
-                <string>Schauspieler</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="FilmInputLine_6">
-               <property name="minimumSize">
-                <size>
-                 <width>100</width>
-                 <height>20</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QLineEdit{
-border: 2px solid rgb(37,39,48);
-border-radius: 20px;
-color: #FFF;
-padding-left: 20px;
-padding-right:20px;
-background-color:rgb(34,36,44);
-height: 20px;
-width: 20px;s
-}</string>
-               </property>
-               <property name="placeholderText">
-                <string>Schauspieler</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QFrame" name="frame_5">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_4">
-             <item>
-              <widget class="QLineEdit" name="FilmInputLine_5">
-               <property name="minimumSize">
-                <size>
-                 <width>100</width>
-                 <height>20</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QLineEdit{
-border: 2px solid rgb(37,39,48);
-border-radius: 20px;
-color: #FFF;
-padding-left: 20px;
-padding-right:20px;
-background-color:rgb(34,36,44);
-height: 20px;
-width: 20px;s
-}</string>
-               </property>
-               <property name="placeholderText">
-                <string>Schauspieler</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="FilmInputLine_8">
-               <property name="minimumSize">
-                <size>
-                 <width>100</width>
-                 <height>20</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QLineEdit{
-border: 2px solid rgb(37,39,48);
-border-radius: 20px;
-color: #FFF;
-padding-left: 20px;
-padding-right:20px;
-background-color:rgb(34,36,44);
-height: 20px;
-width: 20px;s
-}</string>
-               </property>
-               <property name="placeholderText">
-                <string>Schauspieler</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="sucheButton">
          <property name="text">
           <string>suche</string>
@@ -350,11 +149,9 @@ width: 20px;s
         </widget>
        </item>
       </layout>
-      <zorder>frame_4</zorder>
       <zorder>sucheButton</zorder>
-      <zorder>frame_11</zorder>
       <zorder>FilmInput</zorder>
-      <zorder>listWidget</zorder>
+      <zorder>frame_11</zorder>
      </widget>
      <widget class="QFrame" name="frame_2">
       <property name="geometry">
@@ -587,6 +384,39 @@ width: 40px;s
        <string/>
       </property>
      </widget>
+     <widget class="QListWidget" name="listWidget">
+      <property name="geometry">
+       <rect>
+        <x>510</x>
+        <y>80</y>
+        <width>491</width>
+        <height>109</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QListWidget{
+border: 2px solid rgb(37,39,48);
+border-bottom-left-radius: 10px; 
+border-bottom-right-radius: 10px;
+border-top:none;
+color: rgb(134, 134, 134);
+padding-left: 20px;
+padding-right:20px;
+background-color:rgb(255, 255, 255);
+height: 40px;
+width: 40px;s
+}</string>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustToContents</enum>
+      </property>
+     </widget>
      <zorder>frame_2</zorder>
      <zorder>frame_8</zorder>
      <zorder>label</zorder>
@@ -599,6 +429,7 @@ width: 40px;s
      <zorder>OutputDauer</zorder>
      <zorder>label_5</zorder>
      <zorder>OutputErscheinungsjahr</zorder>
+     <zorder>listWidget</zorder>
     </widget>
    </widget>
   </widget>

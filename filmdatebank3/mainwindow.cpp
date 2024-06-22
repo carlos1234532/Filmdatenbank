@@ -18,6 +18,7 @@ MainWindow::MainWindow(model* m, controller* c , QSqlDatabase* db, QWidget* pare
     _database = db;
 
     //loadpictures();
+    setuplistwidget();
 
     connectdb();
     actions();
@@ -54,6 +55,7 @@ void MainWindow::listitemclicked(QListWidgetItem *item)
 {
     ui->FilmInput->setText(item->text());
     ui->listWidget->setVisible(false);
+    updatefilminputborder(false);
 }
 
 void MainWindow::sizepreselectionwidget()
@@ -70,12 +72,16 @@ void MainWindow::preselection()
 {
     qDebug() <<"preselection started";
     QString film = ui->FilmInput->text();
-
+    positionlistwidget();
     if(!film.isEmpty()){
         _model->preselectionquery(film,_database);
 
-        ui->listWidget->clear();
-        ui->listWidget->setVisible(true);
+        if(ui->listWidget->count()){
+            ui->listWidget->clear();
+            ui->listWidget->setVisible(true);
+            ui->FilmInput->setFocus();
+            updatefilminputborder(true);
+        }
         showpreselection();
         sizepreselectionwidget();
         _controller->clearcache();
@@ -83,6 +89,7 @@ void MainWindow::preselection()
     else{
         ui->listWidget->clear();
         ui->listWidget->setVisible(false);
+        updatefilminputborder(false);
     }
 }
 
@@ -92,6 +99,35 @@ void MainWindow::showpreselection()
         for (movie* m : movies) {
             ui->listWidget->addItem(m->gettitle());;
         }
+}
+
+void MainWindow::setuplistwidget()
+{
+    ui->listWidget->setWindowFlags(Qt::ToolTip | Qt::FramelessWindowHint);
+}
+
+void MainWindow::positionlistwidget()
+{
+    ui->listWidget->setFixedWidth(ui->FilmInput->width());
+    QPoint pos = ui->FilmInput->mapToGlobal(QPoint(0, ui->FilmInput->height() - 8));
+    ui->listWidget->move(pos);
+}
+
+void MainWindow::updatefilminputborder(bool showBottomBorder)
+{
+    QString styleSheet = ui->FilmInput->styleSheet();
+
+    if (!showBottomBorder) {
+        styleSheet.replace("border-bottom: none;","border-bottom: 2px solid rgb(37,39,48);");
+        styleSheet.replace("border-bottom-left-radius: 0px;","border-bottom-left-radius: 10px;");
+        styleSheet.replace("border-bottom-right-radius: 0px;","border-bottom-right-radius: 10px;");
+    }
+    else{
+        styleSheet.replace("border-bottom: 2px solid rgb(37,39,48);","border-bottom: none;");
+        styleSheet.replace("border-bottom-left-radius: 10px;","border-bottom-left-radius: 0px;");
+        styleSheet.replace("border-bottom-right-radius: 10px;","border-bottom-right-radius: 0px;");
+    }
+    ui->FilmInput->setStyleSheet(styleSheet);
 }
 
 void MainWindow::showresultsinwindow(QList<QString> *stringList)

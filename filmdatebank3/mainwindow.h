@@ -40,5 +40,8 @@ private:
     void showpreselection();
     void listitemclicked(QListWidgetItem *item);
     void sizepreselectionwidget();
+    void setuplistwidget();
+    void positionlistwidget();
+    void updatefilminputborder(bool showBottomBorder);
 };
 #endif // MAINWINDOW_H
