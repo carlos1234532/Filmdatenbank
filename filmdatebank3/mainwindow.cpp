@@ -7,6 +7,13 @@
 #include <QFileDialog>
 #include <QScrollArea>
 
+//qchart test
+#include <QtCharts/QChartView>
+#include <QtCharts/QBarSeries>
+#include <QtCharts/QBarSet>
+#include <QtCharts/QBarCategoryAxis>
+#include <QtCharts/QValueAxis>
+
 MainWindow::MainWindow(model* m, controller* c , QSqlDatabase* db, QWidget* parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -29,6 +36,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+/*
+void MainWindow::creatediagramm()
+{
+
+}
+*/
+
 void MainWindow::deactivateview()
 {
     ui->listWidget->setVisible(false);
@@ -41,6 +55,7 @@ void MainWindow::deactivateview()
 void MainWindow::loadcovers(QString fileName)
 {
     QString executablePath = QCoreApplication::applicationDirPath();
+    qDebug()<<"ApplicationPath: " << executablePath;
     QString imagesPath = executablePath +"/filmcover/";
 
     QDir imageDir(imagesPath);
