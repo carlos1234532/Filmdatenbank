@@ -1,3 +1,5 @@
 <RCC>
-    <qresource prefix="/"/>
+    <qresource prefix="/">
+        <file>../rezensionen/user.jpg</file>
+    </qresource>
 </RCC>

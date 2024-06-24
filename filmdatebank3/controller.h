@@ -5,6 +5,9 @@
 #include "QObject"
 #include "movie.h"
 #include "actor.h"
+#include "provider.h"
+#include "genre.h"
+#include "user.h"
 
 class controller : public QObject
 {
@@ -24,11 +27,30 @@ public:
     QList<actor*> getactorcache();
     bool existsactor(QString name);
 
+    //provider object methods
+    void addprovider(provider* provider);
+    void clearprovidercache();
+    QList<provider*> getprovidercache();
+    bool existprovider(QString name);
+
+    //genre object methods
+    void addgenre(genre* genre);
+    void cleargenrecache();
+    QList<genre*> getgenrecache();
+    bool existgenre(QString name);
+
+    //user object methods
+    void adduser(user* user);
+    void clearusercache();
+    QList<user*> getusercache();
+    bool existuser(int userid);
 
 private:
     QList<movie*> _cache;
-
     QList<actor*> _actorcache;
+    QList<provider*> _providercache;
+    QList<genre*> _genrecache;
+    QList<user*> _usercache;
 };
 
 #endif // CONTROLLER_H

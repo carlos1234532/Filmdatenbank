@@ -19,6 +19,11 @@ public:
     void getfilmdataquery(QString filmname,QSqlDatabase* db);
     void getactorquery(QString filmname,QSqlDatabase* db);
     void getproviderquery(QString filmname,QSqlDatabase* db);
+    void getgenrequery(QString filmname,QSqlDatabase* db);
+    void getuserquery(QString filmname,QSqlDatabase* db);
+
+    void insertratingquery(int benutzerid,int filmid,QString bewertung,int grade,QSqlDatabase* db);
+    void deleteratingquery(int benutzerid,QSqlDatabase* db);
 
 private:
 

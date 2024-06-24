@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
     controller* c = new controller();
     model* m = new model(c);
     QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
+    m->connectionbuild(&db);
     MainWindow w(m,c,&db);
     w.show();
     return a.exec();

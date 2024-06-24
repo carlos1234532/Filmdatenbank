@@ -18,6 +18,7 @@ class MainWindow : public QMainWindow
 public slots:
     void startquery();
     void clear();
+    void insertratingquery();
 
 public:
     MainWindow(model* m,controller* c,QSqlDatabase* db, QWidget* parent = nullptr);
@@ -32,9 +33,14 @@ private:
 
     void connectdb();
     void actions();
+
     void showfilmdata();
     void showactordata();
+    void showproviderdata();
+    void showgenredata();
+    void showuserdata();
     void getfilmdataquery();
+
     void loadcovers(QString fileName);
     void preselection();
     void showpreselection();
@@ -44,5 +50,7 @@ private:
     void positionlistwidget();
     void updatefilminputborder(bool showBottomBorder);
     void setpixmaptolabelsize(QPixmap &pixmap);
+
+    void deactivateview();
 };
 #endif // MAINWINDOW_H
