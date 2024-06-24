@@ -5,6 +5,8 @@
 #include <QObject>
 #include <QWidget>
 #include "controller.h"
+#include "qapplication.h"
+#include "qdir.h"
 
 class model: public QObject
 {
@@ -24,6 +26,8 @@ public:
 
     void insertratingquery(int benutzerid,int filmid,QString bewertung,int grade,QSqlDatabase* db);
     void deleteratingquery(int benutzerid,QSqlDatabase* db);
+
+    QDir findpath(QString folder);
 
 private:
 

@@ -27,7 +27,6 @@ MainWindow::MainWindow(model* m, controller* c , QSqlDatabase* db, QWidget* pare
 
     setuplistwidget();
 
-    //connectdb();
     actions();
 }
 
@@ -54,13 +53,7 @@ void MainWindow::deactivateview()
 
 void MainWindow::loadcovers(QString fileName)
 {
-    QString executablePath = QCoreApplication::applicationDirPath();
-    qDebug()<<"ApplicationPath: " << executablePath;
-    QString imagesPath = executablePath +"/filmcover/";
-
-    QDir imageDir(imagesPath);
-
-    QPixmap pixmap(imageDir.filePath(fileName));
+    QPixmap pixmap(_model->findpath("filmcover").filePath(fileName));
     setpixmaptolabelsize(pixmap);
     ui->filmcover->setPixmap(pixmap);
     qDebug()<<"loadpictures beendet";
@@ -69,12 +62,6 @@ void MainWindow::loadcovers(QString fileName)
 void MainWindow::setpixmaptolabelsize(QPixmap &pixmap)
 {
     pixmap = pixmap.scaled(ui->filmcover->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
-}
-
-void MainWindow::connectdb()
-{
-    qDebug() <<"MainWindow::connectDB wurde geöffnet";
-    _model->connectionbuild(_database);
 }
 
 void MainWindow::actions()
@@ -207,14 +194,10 @@ void MainWindow::showfilmdata()
 
 void MainWindow::showactordata()
 {
-    QString executablePath = QCoreApplication::applicationDirPath();
-    QString imagesPath = executablePath +"/actors/";
-    QDir imageDir(imagesPath);
-
     const QList<actor*>& actors = _controller->getactorcache();
     for (actor* a : actors) {
 
-        QString newEntry = "<p><b>" + a->getname() + "</b><br><img src='" + imageDir.filePath(a->geturl()) + "' width='100' height='150'></p>";
+        QString newEntry = "<p><b>" + a->getname() + "</b><br><img src='" + _model->findpath("actors").filePath(a->geturl()) + "' width='100' height='150'></p>";
         QString newText = ui->OutputSchauspieler->toHtml() + newEntry;
         ui->OutputSchauspieler->setHtml(newText);
 
@@ -224,14 +207,10 @@ void MainWindow::showactordata()
 
 void MainWindow::showproviderdata()
 {
-    QString executablePath = QCoreApplication::applicationDirPath();
-    QString imagesPath = executablePath +"/provider/";
-    QDir imageDir(imagesPath);
-
     const QList<provider*>& providers = _controller->getprovidercache();
     for (provider* p : providers) {
 
-        QString newEntry = "<p><b>" + p->getname() + "</b>" + "<br>"+"<img src='" + imageDir.filePath(p->geturl()) + "' width='75' height='112'>"
+        QString newEntry = "<p><b>" + p->getname() + "</b>" + "<br>"+"<img src='" + _model->findpath("provider").filePath(p->geturl()) + "' width='75' height='112'>"
                 "<br>"+"Kaufen: "+ QString::number(p->getkaufpreis()) +"Euro<br>"+ "Leihen: " + QString::number(p->getleihpreis())+"Euro"+"</p>";
         QString newText = ui->OutputAnbieter->toHtml() + newEntry;
         ui->OutputAnbieter->setHtml(newText);
@@ -253,12 +232,6 @@ void MainWindow::showuserdata()
     QString imagepath = ":/rezensionen/";
     QString image ="user.jpg";
     QDir imageDir(imagepath);
-
-    if (imageDir.exists()) {
-        qDebug() << "Das Bild existiert.";
-    } else {
-        qDebug() << "Das Bild konnte nicht gefunden werden.";
-    }
 
     const QList<user*>& users = _controller->getusercache();
     for (user* u : users) {
@@ -321,15 +294,5 @@ void MainWindow::startquery()
         showuserdata();
     }
 }
-    /*
-    if(ui->erweitereSucheCheckBox->isChecked()){
-        _model->customquery(ui->FilmInput->text(),_database,List);
-        showresultsinwindow(List);
-    }
-    else{
-        _model->getfilmdataquery(ui->FilmInput->text(),_database);
 
-        showfilmdata();
-    }
-    */
 

@@ -31,7 +31,6 @@ private:
     controller* _controller;
     QSqlDatabase* _database;
 
-    void connectdb();
     void actions();
 
     void showfilmdata();

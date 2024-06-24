@@ -28,6 +28,19 @@ void model::connectionbuild(QSqlDatabase* db)
         qDebug() << "Connection successfull";
     }
 }
+
+QDir model::findpath(QString imagesPath)
+{
+    QString executablePath = QCoreApplication::applicationDirPath();
+    //qDebug()<<"ApplicationPath: " << executablePath;
+    //QString imagesPath = executablePath ;
+
+    QDir imageDir(executablePath);
+    imageDir.cdUp();
+    imageDir.cdUp();
+    imageDir.cd(imagesPath);
+    return imageDir;
+}
 /*
 void model::customquery(QString Filmreihe,QSqlDatabase* db,QList<QString>* stringList)
 {
@@ -255,7 +268,7 @@ void model::insertratingquery(int benutzerid,int filmid,QString bewertung,int gr
 
     QSqlQuery insertratingdata(*db);
     if(!insertratingdata.prepare("\
-        INSERT INTO benutzerfilmzuordnung(benutzerid,filmid,bewertung,note) \
+        INSERT INTO benutzerfilmzuordnung(benutzerid,filmid,bewertung,note)\
         VALUES(:benutzerid,:filmid,:bewertung,:grade)\
         ")){
         qDebug() <<"Prepare failed: " << insertratingdata.lastError().text();
