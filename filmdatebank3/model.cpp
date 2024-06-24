@@ -80,7 +80,7 @@ void model::preselectionquery(QString film,QSqlDatabase* db)
 {
     QSqlQuery getfilmdata(*db);
     if(!getfilmdata.prepare("\
-    SELECT *\
+    SELECT film.name\
     FROM Film\
     WHERE Name like :filmname\
     ")) {
@@ -96,7 +96,7 @@ void model::preselectionquery(QString film,QSqlDatabase* db)
     }
     while (getfilmdata.next())
     {
-        movie* m = new movie(getfilmdata.value(3).toString());
+        movie* m = new movie(getfilmdata.value(0).toString());
         _controller->addmovie(m);
     }
     getfilmdata.finish();
@@ -107,7 +107,7 @@ void model::getfilmdataquery(QString filmname,QSqlDatabase* db)
 {
     QSqlQuery getfilmdata(*db);
     if(!getfilmdata.prepare("\
-    SELECT *\
+    SELECT filmid,filmreiheid,url,name,dauer,erscheinungsjahr,produzent,beschreibung\
     FROM Film\
     WHERE Name = :filmname\
     ")) {
@@ -282,7 +282,7 @@ void model::insertratingquery(int benutzerid,int filmid,QString bewertung,int gr
 
     if (!insertratingdata.exec()){
         qDebug() << "Execute failed: "<< insertratingdata.lastError().text();
-        exit(1);
+        //exit(1);
     }
 
     insertratingdata.finish();

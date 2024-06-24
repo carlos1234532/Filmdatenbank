@@ -210,7 +210,7 @@ void MainWindow::showproviderdata()
     const QList<provider*>& providers = _controller->getprovidercache();
     for (provider* p : providers) {
 
-        QString newEntry = "<p><b>" + p->getname() + "</b>" + "<br>"+"<img src='" + _model->findpath("provider").filePath(p->geturl()) + "' width='75' height='112'>"
+        QString newEntry = "<p><b>" + p->getname() + "</b>" + "<br>"+"<img src='" + _model->findpath("provider").filePath(p->geturl()) + "' width='75' height='100'>"
                 "<br>"+"Kaufen: "+ QString::number(p->getkaufpreis()) +"Euro<br>"+ "Leihen: " + QString::number(p->getleihpreis())+"Euro"+"</p>";
         QString newText = ui->OutputAnbieter->toHtml() + newEntry;
         ui->OutputAnbieter->setHtml(newText);

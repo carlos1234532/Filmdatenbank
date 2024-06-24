@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1012</width>
+    <width>993</width>
     <height>986</height>
    </rect>
   </property>
@@ -531,7 +531,7 @@ background-color:rgb(25, 63, 71);
     <widget class="QPushButton" name="verlassenButton">
      <property name="geometry">
       <rect>
-       <x>920</x>
+       <x>900</x>
        <y>40</y>
        <width>80</width>
        <height>29</height>
@@ -1331,7 +1331,7 @@ border-bottom-right-radius: 10px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1012</width>
+     <width>993</width>
      <height>25</height>
     </rect>
    </property>
