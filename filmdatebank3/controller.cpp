@@ -120,3 +120,26 @@ for (user* u : _usercache) {
     }
         return false;
 }
+
+//grade methods
+void controller::addgrade(grade* grade) {
+    _gradecache.push_back(grade);
+}
+
+void controller::cleargradecache() {
+    _gradecache.clear();
+}
+
+QList<grade*> controller::getgradecache() {
+    return _gradecache;
+}
+
+bool controller::existgrade(int gradevalue){
+for (grade* g : _gradecache) {
+    if (g->getgrade() == gradevalue) {
+        return true;
+        }
+    }
+        return false;
+}
+

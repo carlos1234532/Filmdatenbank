@@ -11,8 +11,8 @@ public:
     //Constructor
     movie(QString title,QString genre,int duration,QString description,
         QString rating,int grade,int release,QString producer,QString url,int filmid);
-
     movie(QString title);
+    movie(int grade);
 
     //getter
     QString gettitle() { return _title; }

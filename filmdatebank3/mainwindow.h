@@ -51,5 +51,8 @@ private:
     void setpixmaptolabelsize(QPixmap &pixmap);
 
     void deactivateview();
+    void showdoverallratingdiagramm();
+
+    void deletechartcontainer();
 };
 #endif // MAINWINDOW_H

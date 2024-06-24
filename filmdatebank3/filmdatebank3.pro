@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -22,6 +22,7 @@ SOURCES += \
     actor.cpp \
     controller.cpp \
     genre.cpp \
+    grade.cpp \
     main.cpp \
     mainwindow.cpp \
     model.cpp \
@@ -33,6 +34,7 @@ HEADERS += \
     actor.h \
     controller.h \
     genre.h \
+    grade.h \
     mainwindow.h \
     model.h \
     movie.h \

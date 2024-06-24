@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>993</width>
+    <width>1088</width>
     <height>986</height>
    </rect>
   </property>
@@ -510,7 +510,7 @@
      <rect>
       <x>0</x>
       <y>-10</y>
-      <width>1031</width>
+      <width>1091</width>
       <height>91</height>
      </rect>
     </property>
@@ -531,7 +531,7 @@ background-color:rgb(25, 63, 71);
     <widget class="QPushButton" name="verlassenButton">
      <property name="geometry">
       <rect>
-       <x>900</x>
+       <x>1000</x>
        <y>40</y>
        <width>80</width>
        <height>29</height>
@@ -569,7 +569,7 @@ color:rgb(255, 255, 255);
    <widget class="QListWidget" name="listWidget">
     <property name="geometry">
      <rect>
-      <x>790</x>
+      <x>880</x>
       <y>100</y>
       <width>51</width>
       <height>21</height>
@@ -804,9 +804,9 @@ width: 40px;s
    <widget class="QTextEdit" name="OutputSchauspieler">
     <property name="geometry">
      <rect>
-      <x>820</x>
+      <x>940</x>
       <y>230</y>
-      <width>161</width>
+      <width>121</width>
       <height>551</height>
      </rect>
     </property>
@@ -846,7 +846,7 @@ background-color:rgb(255, 255, 255);
     </property>
     <property name="geometry">
      <rect>
-      <x>820</x>
+      <x>940</x>
       <y>200</y>
       <width>91</width>
       <height>20</height>
@@ -857,41 +857,6 @@ background-color:rgb(255, 255, 255);
     </property>
     <property name="text">
      <string>Schauspieler:</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="OutputName">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>260</y>
-      <width>501</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>16777215</width>
-      <height>16777215</height>
-     </size>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLabel{
-padding-left: 20px;
-padding-right:20px;
-height: 40px;
-width: 40px;s
-}</string>
-    </property>
-    <property name="text">
-     <string/>
     </property>
    </widget>
    <widget class="QLabel" name="filmcover">
@@ -953,7 +918,7 @@ width: 40px;s
    <widget class="QFrame" name="frame_8">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>310</x>
       <y>90</y>
       <width>509</width>
       <height>161</height>
@@ -1036,8 +1001,8 @@ border-bottom-right-radius: 10px;
      <rect>
       <x>200</x>
       <y>250</y>
-      <width>601</width>
-      <height>661</height>
+      <width>720</width>
+      <height>480</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -1057,11 +1022,40 @@ border-bottom-right-radius: 10px;
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>601</width>
-       <height>10407</height>
+       <width>720</width>
+       <height>10791</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="OutputName">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>15</pointsize>
+         </font>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel{
+padding-left: 20px;
+padding-right:20px;
+height: 40px;
+width: 40px;s
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
       <item>
        <widget class="QFrame" name="frame">
         <property name="maximumSize">
@@ -1079,6 +1073,12 @@ border-bottom-right-radius: 10px;
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
           <widget class="QTextEdit" name="OutputProduzent">
+           <property name="maximumSize">
+            <size>
+             <width>120</width>
+             <height>16777215</height>
+            </size>
+           </property>
            <property name="autoFillBackground">
             <bool>false</bool>
            </property>
@@ -1111,6 +1111,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
          </item>
          <item>
           <widget class="QTextEdit" name="OutputErscheinungsjahr">
+           <property name="maximumSize">
+            <size>
+             <width>120</width>
+             <height>16777215</height>
+            </size>
+           </property>
            <property name="autoFillBackground">
             <bool>false</bool>
            </property>
@@ -1126,7 +1132,29 @@ li.checked::marker { content: &quot;\2612&quot;; }
           </widget>
          </item>
          <item>
+          <widget class="QFrame" name="frame_9">
+           <property name="maximumSize">
+            <size>
+             <width>20</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QTextEdit" name="OutputDauer">
+           <property name="maximumSize">
+            <size>
+             <width>150</width>
+             <height>16777215</height>
+            </size>
+           </property>
            <property name="autoFillBackground">
             <bool>false</bool>
            </property>
@@ -1141,6 +1169,22 @@ li.checked::marker { content: &quot;\2612&quot;; }
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QFrame" name="frame_7">
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+          </widget>
+         </item>
         </layout>
        </widget>
       </item>
@@ -1151,6 +1195,17 @@ li.checked::marker { content: &quot;\2612&quot;; }
           <width>0</width>
           <height>120</height>
          </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>800</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
         </property>
         <property name="cursor" stdset="0">
          <cursorShape>ArrowCursor</cursorShape>
@@ -1213,17 +1268,92 @@ li.checked::marker { content: &quot;\2612&quot;; }
        </widget>
       </item>
       <item>
-       <spacer name="verticalSpacer">
+       <spacer name="verticalSpacer_2">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::MinimumExpanding</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
-          <height>40</height>
+          <height>50</height>
          </size>
         </property>
        </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="Kundenrezensionen">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel{
+padding-left: 20px;
+padding-right:20px;
+height: 40px;
+width: 40px;s
+}</string>
+        </property>
+        <property name="text">
+         <string>Kundenrezensionen</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="frame_3">
+        <property name="minimumSize">
+         <size>
+          <width>200</width>
+          <height>250</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QFrame {
+    margin-top: -20px; 
+}</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QWidget" name="chartcontainer" native="true">
+           <property name="maximumSize">
+            <size>
+             <width>300</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QFrame" name="frame_6">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </item>
       <item>
        <widget class="QPlainTextEdit" name="BewertungInput">
@@ -1331,7 +1461,7 @@ border-bottom-right-radius: 10px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>993</width>
+     <width>1088</width>
      <height>25</height>
     </rect>
    </property>

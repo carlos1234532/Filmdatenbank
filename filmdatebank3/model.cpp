@@ -5,6 +5,12 @@
 #include <QSqlQuery>
 #include <controller.h>
 
+
+//Balkendiagramm
+#include <QtCharts/QHorizontalBarSeries>
+#include <QtCharts/QBarSet>
+#include <QtCharts/QBarCategoryAxis>
+
 model::model(controller* c)
 {
     _controller = c;
@@ -41,6 +47,7 @@ QDir model::findpath(QString imagesPath)
     imageDir.cd(imagesPath);
     return imageDir;
 }
+
 /*
 void model::customquery(QString Filmreihe,QSqlDatabase* db,QList<QString>* stringList)
 {
@@ -309,4 +316,42 @@ void model::deleteratingquery(int benutzerid,QSqlDatabase* db)
 
     deleteratingdata.finish();
     qDebug()<<"deleteratingdata finished";
+}
+
+void model::overallratingquery(QString filmname,QSqlDatabase* db){
+    QSqlQuery getgradedata(*db);
+    if(!getgradedata.prepare("\
+        WITH NoteCounts AS (SELECT n.note AS Note, COUNT(b.note) AS NoteCount\
+        FROM (SELECT 1 AS note UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6) AS n\
+        LEFT JOIN benutzerfilmzuordnung b ON n.note = b.note\
+        JOIN film f ON b.filmid = f.filmid WHERE f.name = :filmname\
+        GROUP BY n.note),\
+        TotalCount AS (SELECT COUNT(*) AS TotalNoteCount\
+        FROM benutzerfilmzuordnung b\
+        JOIN film f ON b.filmid = f.filmid\
+        WHERE f.name = :filmname)\
+        SELECT ROUND((COALESCE(nc.NoteCount, 0) * 100.0 / tc.TotalNoteCount), 1) AS ProzentualerAnteil\
+        FROM (SELECT 1 AS note UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6) AS n\
+        LEFT JOIN NoteCounts nc ON n.note = nc.Note\
+        CROSS JOIN TotalCount tc\
+        ORDER BY n.note\
+        ")){
+        qDebug() <<"Prepare failed: " << getgradedata.lastError().text();
+        exit(1);
+        }
+        getgradedata.bindValue(":filmname",filmname);
+
+    if (!getgradedata.exec()){
+        qDebug() << "Execute failed: "<< getgradedata.lastError().text();
+    }
+
+    while (getgradedata.next())
+    {
+    qDebug() << getgradedata.value(0).toInt();
+
+    grade* g = new grade(getgradedata.value(0).toInt());
+    _controller->addgrade(g);
+    }
+    getgradedata.finish();
+    qDebug()<<"getgradequery finished";
 }

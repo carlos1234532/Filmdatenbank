@@ -10,3 +10,8 @@ movie::movie(QString title)
     : _title(std::move(title)){
 
 }
+
+movie::movie(int grade)
+    : _grade(grade){
+
+}

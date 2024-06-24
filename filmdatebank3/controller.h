@@ -8,6 +8,7 @@
 #include "provider.h"
 #include "genre.h"
 #include "user.h"
+#include "grade.h"
 
 class controller : public QObject
 {
@@ -45,12 +46,18 @@ public:
     QList<user*> getusercache();
     bool existuser(int userid);
 
+    //grade object methods
+    void addgrade(grade* grade);
+    void cleargradecache();
+    QList<grade*> getgradecache();
+    bool existgrade(int gradevalue);
 private:
     QList<movie*> _cache;
     QList<actor*> _actorcache;
     QList<provider*> _providercache;
     QList<genre*> _genrecache;
     QList<user*> _usercache;
+    QList<grade*> _gradecache;
 };
 
 #endif // CONTROLLER_H

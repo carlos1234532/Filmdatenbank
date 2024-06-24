@@ -9,10 +9,9 @@
 
 //qchart test
 #include <QtCharts/QChartView>
-#include <QtCharts/QBarSeries>
+#include <QtCharts/QHorizontalBarSeries>
 #include <QtCharts/QBarSet>
 #include <QtCharts/QBarCategoryAxis>
-#include <QtCharts/QValueAxis>
 
 MainWindow::MainWindow(model* m, controller* c , QSqlDatabase* db, QWidget* parent)
     : QMainWindow(parent)
@@ -27,6 +26,8 @@ MainWindow::MainWindow(model* m, controller* c , QSqlDatabase* db, QWidget* pare
 
     setuplistwidget();
 
+    //creatediagramm();
+
     actions();
 }
 
@@ -35,17 +36,67 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-/*
-void MainWindow::creatediagramm()
-{
 
+void MainWindow::showdoverallratingdiagramm()
+{
+    deletechartcontainer();
+
+    QList<int> values;
+    const QList<grade*>& grades = _controller->getgradecache();
+    for (grade* g : grades) {
+
+        values << g->getgrade();
+    }
+    // Prozentdaten
+    QStringList categories;
+    categories << "Note 1" << "Note 2" << "Note 3" << "Note 4" << "Note 5" << "Note 6";
+
+    QBarSet *b = new QBarSet("Werte");
+        for (int value : values) {
+            *b << value;
+        }
+
+    // Serie erstellen und Balken hinzufügen
+    QHorizontalBarSeries *series = new QHorizontalBarSeries();
+    series->append(b);
+
+    // Diagramm erstellen und Serie hinzufügen
+    QChart *chart = new QChart();
+    chart->addSeries(series);
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+
+    // Entfernen des Hintergrunds über das Stylesheet
+    //chart->
+
+    // Achsen hinzufügen
+    QBarCategoryAxis *axisY = new QBarCategoryAxis();
+    axisY->append(categories);
+    chart->addAxis(axisY, Qt::AlignLeft);
+    chart->legend()->hide();
+    //series->attachAxis(axisY);
+
+    QFont labelsFont;
+    labelsFont.setPointSize(5);
+    axisY->setLabelsFont(labelsFont);
+
+    // ChartView erstellen und in das Platzhalter-Widget einfügen
+    QChartView *chartView = new QChartView(chart);
+    chartView->setRenderHint(QPainter::Antialiasing);
+
+    // Setze das ChartView in den chartContainer
+    QVBoxLayout *layout = new QVBoxLayout(ui->chartcontainer);
+    layout->addWidget(chartView);
+    ui->chartcontainer->setLayout(layout);
+
+    ui->Kundenrezensionen->setVisible(true);
+    qDebug()<<"creatediagramm() finished";
 }
-*/
 
 void MainWindow::deactivateview()
 {
     ui->listWidget->setVisible(false);
     ui->SchauspielerLabel->setVisible(false);
+    ui->Kundenrezensionen->setVisible(false);
     ui->BewertungInput->setVisible(false);
     ui->bewertungButton->setVisible(false);
     ui->NoteInput->setVisible(false);
@@ -88,8 +139,13 @@ void MainWindow::insertratingquery()
         _model->insertratingquery(10009,filmid,ui->BewertungInput->toPlainText(),ui->NoteInput->text().toInt(),_database);
         _controller->clearusercache();
         ui->OutputBenutzerBewertung->setPlainText("");
+
         _model->getuserquery(ui->FilmInput->text(),_database);
         showuserdata();
+
+        _controller->cleargradecache();
+        _model->overallratingquery(ui->FilmInput->text(),_database);
+        showdoverallratingdiagramm();
 
         ui->BewertungInput->clear();
         ui->NoteInput->clear();
@@ -210,7 +266,7 @@ void MainWindow::showproviderdata()
     const QList<provider*>& providers = _controller->getprovidercache();
     for (provider* p : providers) {
 
-        QString newEntry = "<p><b>" + p->getname() + "</b>" + "<br>"+"<img src='" + _model->findpath("provider").filePath(p->geturl()) + "' width='75' height='100'>"
+        QString newEntry = "<p><b>" + p->getname() + "</b>" + "<br>"+"<img src='" + _model->findpath("provider").filePath(p->geturl()) + "' width='75' height='90'>"
                 "<br>"+"Kaufen: "+ QString::number(p->getkaufpreis()) +"Euro<br>"+ "Leihen: " + QString::number(p->getleihpreis())+"Euro"+"</p>";
         QString newText = ui->OutputAnbieter->toHtml() + newEntry;
         ui->OutputAnbieter->setHtml(newText);
@@ -256,6 +312,7 @@ void MainWindow::clear()
     ui->filmcover->setPixmap(pixmap);
     ui->OutputSchauspieler->setText("");
     ui->SchauspielerLabel->setVisible(false);
+    ui->Kundenrezensionen->setVisible(false);
     ui->listWidget->clear();
     ui->listWidget->setVisible(false);
     updatefilminputborder(false);
@@ -269,6 +326,26 @@ void MainWindow::clear()
     _controller->clearprovidercache();
     _controller->cleargenrecache();
     _controller->clearusercache();
+    _controller->cleargradecache();
+
+    deletechartcontainer();
+}
+
+void MainWindow::deletechartcontainer()
+{
+
+    QWidget *chartcontainer = ui->chartcontainer;
+    QVBoxLayout *layout = dynamic_cast<QVBoxLayout*>(chartcontainer->layout());
+
+    if (layout) {
+        QLayoutItem *item;
+        while ((item = layout->takeAt(0)) != nullptr) {
+            delete item->widget();
+            delete item;
+        }
+        chartcontainer->setLayout(nullptr);
+        delete layout;
+    }
 }
 void MainWindow::startquery()
 {
@@ -293,6 +370,11 @@ void MainWindow::startquery()
     if(!_controller->getusercache().isEmpty()){
         showuserdata();
     }
+    _model->overallratingquery(film,_database);
+    if(!_controller->getgradecache().isEmpty()){
+        showdoverallratingdiagramm();
+    }
+    ui->FilmInput->clear();
 }
 
 
