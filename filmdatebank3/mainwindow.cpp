@@ -25,9 +25,6 @@ MainWindow::MainWindow(model* m, controller* c , QSqlDatabase* db, QWidget* pare
     _database = db;
 
     setuplistwidget();
-
-    //creatediagramm();
-
     actions();
 }
 
@@ -35,7 +32,6 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
 
 void MainWindow::showdoverallratingdiagramm()
 {
@@ -47,7 +43,6 @@ void MainWindow::showdoverallratingdiagramm()
 
         values << g->getgrade();
     }
-    // Prozentdaten
     QStringList categories;
     categories << "Note 1" << "Note 2" << "Note 3" << "Note 4" << "Note 5" << "Note 6";
 
@@ -56,34 +51,25 @@ void MainWindow::showdoverallratingdiagramm()
             *b << value;
         }
 
-    // Serie erstellen und Balken hinzufügen
     QHorizontalBarSeries *series = new QHorizontalBarSeries();
     series->append(b);
 
-    // Diagramm erstellen und Serie hinzufügen
     QChart *chart = new QChart();
     chart->addSeries(series);
     chart->setAnimationOptions(QChart::SeriesAnimations);
 
-    // Entfernen des Hintergrunds über das Stylesheet
-    //chart->
-
-    // Achsen hinzufügen
     QBarCategoryAxis *axisY = new QBarCategoryAxis();
     axisY->append(categories);
     chart->addAxis(axisY, Qt::AlignLeft);
     chart->legend()->hide();
-    //series->attachAxis(axisY);
 
     QFont labelsFont;
     labelsFont.setPointSize(5);
     axisY->setLabelsFont(labelsFont);
 
-    // ChartView erstellen und in das Platzhalter-Widget einfügen
     QChartView *chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
 
-    // Setze das ChartView in den chartContainer
     QVBoxLayout *layout = new QVBoxLayout(ui->chartcontainer);
     layout->addWidget(chartView);
     ui->chartcontainer->setLayout(layout);
@@ -122,21 +108,42 @@ void MainWindow::actions()
     connect(ui->FilmInput, &QLineEdit::textChanged, this ,&MainWindow::preselection);
     connect(ui->listWidget, &QListWidget::itemClicked, this, &MainWindow::listitemclicked);
     connect(ui->bewertungButton, &QPushButton::clicked, this, &MainWindow::insertratingquery);
+
+    connect(ui->NoteInput,&QLineEdit::textChanged, this, &MainWindow::checknoteinput);
+    connect(ui->backtoLoginButton,&QPushButton::clicked, this, &MainWindow::backtologinwindow);
+}
+
+void MainWindow::backtologinwindow()
+{
+    clear();
+    emit logoutsuccesfull();
+    this->close();
+}
+
+void MainWindow::checknoteinput()
+{
+    QRegularExpression regex("^[1-6]$");
+    QValidator *validator = new QRegularExpressionValidator(regex, ui->NoteInput);
+    ui->NoteInput->setValidator(validator);
+
+    QString input = ui->NoteInput->text();
+    int start = 0;
+    if (validator->validate(input, start) != QValidator::Acceptable) {
+        qDebug() << "Invalid input!";
+    }
 }
 
 void MainWindow::insertratingquery()
 {
-    //Beutzerid die wir benutzen
-    //10009
-    qDebug() <<ui->NoteInput->text().toInt();
     if(!ui->BewertungInput->toPlainText().isEmpty() && (!ui->NoteInput->text().isEmpty() ||
         (ui->NoteInput->text().toInt() <= 6 && ui->NoteInput->text().toInt() >= 1))){
         int filmid;
-        const QList<movie*>& movies= _controller->getcache();
+        const QList<movie*>& movies = _controller->getcache();
         for (movie* m : movies) {
             filmid = m->getfilmid();
         }
-        _model->insertratingquery(10009,filmid,ui->BewertungInput->toPlainText(),ui->NoteInput->text().toInt(),_database);
+        _model->insertratingquery(_controller->getcurrentuser()->getuserid(),filmid,ui->BewertungInput->toPlainText(),ui->NoteInput->text().toInt(),_database);
+
         _controller->clearusercache();
         ui->OutputBenutzerBewertung->setPlainText("");
 
@@ -374,7 +381,8 @@ void MainWindow::startquery()
     if(!_controller->getgradecache().isEmpty()){
         showdoverallratingdiagramm();
     }
-    ui->FilmInput->clear();
+    //darf nicht wird für insertquery benötigt
+    //ui->FilmInput->clear();
 }
 
 

@@ -23,11 +23,13 @@ SOURCES += \
     controller.cpp \
     genre.cpp \
     grade.cpp \
+    login.cpp \
     main.cpp \
     mainwindow.cpp \
     model.cpp \
     movie.cpp \
     provider.cpp \
+    registerdia.cpp \
     user.cpp
 
 HEADERS += \
@@ -35,14 +37,18 @@ HEADERS += \
     controller.h \
     genre.h \
     grade.h \
+    login.h \
     mainwindow.h \
     model.h \
     movie.h \
     provider.h \
+    registerdia.h \
     user.h
 
 FORMS += \
-    mainwindow.ui
+    login.ui \
+    mainwindow.ui \
+    registerdia.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

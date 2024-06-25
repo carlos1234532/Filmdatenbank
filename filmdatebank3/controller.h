@@ -9,6 +9,7 @@
 #include "genre.h"
 #include "user.h"
 #include "grade.h"
+#include <QRegularExpressionValidator>>
 
 class controller : public QObject
 {
@@ -51,6 +52,12 @@ public:
     void cleargradecache();
     QList<grade*> getgradecache();
     bool existgrade(int gradevalue);
+
+    //currentuser methoden
+    //getter
+    user* getcurrentuser() { return _currentuser; }
+    user* setcurrentuser(user* u) { _currentuser = u; }
+
 private:
     QList<movie*> _cache;
     QList<actor*> _actorcache;
@@ -58,6 +65,8 @@ private:
     QList<genre*> _genrecache;
     QList<user*> _usercache;
     QList<grade*> _gradecache;
+
+    user* _currentuser;
 };
 
 #endif // CONTROLLER_H

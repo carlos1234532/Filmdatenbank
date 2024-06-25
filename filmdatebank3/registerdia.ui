@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>registerdia</class>
+ <widget class="QDialog" name="registerdia">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>629</width>
+    <height>587</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QLabel" name="OutputName">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>100</y>
+     <width>151</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>16777215</width>
+     <height>16777215</height>
+    </size>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel{
+padding-left: 20px;
+padding-right:20px;
+height: 40px;
+width: 40px;s
+}</string>
+   </property>
+   <property name="text">
+    <string>Register</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="passwordInput">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>250</y>
+     <width>200</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>200</width>
+     <height>40</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit{
+border: 2px solid rgb(37,39,48);
+border-radius: 10px;
+color: rgb(26, 26, 26);
+padding-left: 20px;
+padding-right:20px;
+height: 40px;
+width: 40px;
+border-bottom: 2px solid rgb(37,39,48);
+border-bottom-left-radius: 10px; 
+border-bottom-right-radius: 10px;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>Passwort</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="BenutzernameInput">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>180</y>
+     <width>200</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>200</width>
+     <height>40</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit{
+border: 2px solid rgb(37,39,48);
+border-radius: 10px;
+color: rgb(26, 26, 26);
+padding-left: 20px;
+padding-right:20px;
+height: 40px;
+width: 40px;
+border-bottom: 2px solid rgb(37,39,48);
+border-bottom-left-radius: 10px; 
+border-bottom-right-radius: 10px;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>Benutzername</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="RegisterButton">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>410</y>
+     <width>201</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Register</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="vornameInput">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>250</y>
+     <width>200</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>200</width>
+     <height>40</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit{
+border: 2px solid rgb(37,39,48);
+border-radius: 10px;
+color: rgb(26, 26, 26);
+padding-left: 20px;
+padding-right:20px;
+height: 40px;
+width: 40px;
+border-bottom: 2px solid rgb(37,39,48);
+border-bottom-left-radius: 10px; 
+border-bottom-right-radius: 10px;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>Vorname</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="NachnameInput">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>180</y>
+     <width>200</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>200</width>
+     <height>40</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit{
+border: 2px solid rgb(37,39,48);
+border-radius: 10px;
+color: rgb(26, 26, 26);
+padding-left: 20px;
+padding-right:20px;
+height: 40px;
+width: 40px;
+border-bottom: 2px solid rgb(37,39,48);
+border-bottom-left-radius: 10px; 
+border-bottom-right-radius: 10px;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>Nachname</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="emailInput">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>320</y>
+     <width>200</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>200</width>
+     <height>40</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit{
+border: 2px solid rgb(37,39,48);
+border-radius: 10px;
+color: rgb(26, 26, 26);
+padding-left: 20px;
+padding-right:20px;
+height: 40px;
+width: 40px;
+border-bottom: 2px solid rgb(37,39,48);
+border-bottom-left-radius: 10px; 
+border-bottom-right-radius: 10px;
+}</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="placeholderText">
+    <string>Email</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="BacktoLoginButton">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>450</y>
+     <width>201</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Back to Log in</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

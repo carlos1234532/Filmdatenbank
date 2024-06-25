@@ -8,7 +8,7 @@ class user : public QObject
     {
         Q_OBJECT
 public:
-    user(int userid,QString name,QString lastname,QString email,QString rating, int grade);
+    user(int userid,QString name,QString lastname,QString email,QString benutzername);
     user(QString firstname,QString lastname,QString rating,int grade);
 
     int getuserid() { return _userid; }
@@ -23,6 +23,7 @@ private:
     QString _firstname;
     QString _lastname;
     QString _email;
+    QString _benutzername;
     QString _rating;
     int _grade;
 };

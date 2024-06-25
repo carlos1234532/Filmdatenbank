@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1088</width>
-    <height>986</height>
+    <height>1225</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -531,8 +531,8 @@ background-color:rgb(25, 63, 71);
     <widget class="QPushButton" name="verlassenButton">
      <property name="geometry">
       <rect>
-       <x>1000</x>
-       <y>40</y>
+       <x>960</x>
+       <y>50</y>
        <width>80</width>
        <height>29</height>
       </rect>
@@ -563,6 +563,19 @@ color:rgb(255, 255, 255);
      </property>
      <property name="text">
       <string>MovideXPilot</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="backtoLoginButton">
+     <property name="geometry">
+      <rect>
+       <x>959</x>
+       <y>20</y>
+       <width>121</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>back to Login</string>
      </property>
     </widget>
    </widget>

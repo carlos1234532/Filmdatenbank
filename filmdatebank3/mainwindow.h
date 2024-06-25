@@ -24,6 +24,9 @@ public:
     MainWindow(model* m,controller* c,QSqlDatabase* db, QWidget* parent = nullptr);
     ~MainWindow();
 
+signals:
+    void logoutsuccesfull();
+
 private:
     Ui::MainWindow* ui;
 
@@ -32,6 +35,7 @@ private:
     QSqlDatabase* _database;
 
     void actions();
+    void checknoteinput();
 
     void showfilmdata();
     void showactordata();
@@ -39,6 +43,7 @@ private:
     void showgenredata();
     void showuserdata();
     void getfilmdataquery();
+    void backtologinwindow();
 
     void loadcovers(QString fileName);
     void preselection();

@@ -48,6 +48,20 @@ QDir model::findpath(QString imagesPath)
     return imageDir;
 }
 
+int model::generaterandomuserid()
+{
+    // Initialisiere den Zufallszahlengenerator mit der aktuellen Zeit
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+
+    // Generiere eine Zufallszahl zwischen 0 und 10.000 (da RAND_MAX mindestens 32.767 beträgt)
+    int randomNumber = std::rand() % 10001;
+
+    // Verschiebe die Zufallszahl in den Bereich von 10.000 bis 20.000
+    int randomUserId = randomNumber + 10000;
+
+    return randomUserId;
+}
+
 /*
 void model::customquery(QString Filmreihe,QSqlDatabase* db,QList<QString>* stringList)
 {
@@ -193,11 +207,11 @@ void model::getproviderquery(QString filmname,QSqlDatabase* db)
 
     while (getproviderdata.next())
     {
-    qDebug() << getproviderdata.value(0).toString();
+        qDebug() << getproviderdata.value(0).toString();
 
-    provider* p = new provider(getproviderdata.value(0).toString(),getproviderdata.value(1).toString(),
-                               getproviderdata.value(2).toInt(),getproviderdata.value(3).toInt());
-    _controller->addprovider(p);
+        provider* p = new provider(getproviderdata.value(0).toString(),getproviderdata.value(1).toString(),
+                                   getproviderdata.value(2).toInt(),getproviderdata.value(3).toInt());
+        _controller->addprovider(p);
     }
     getproviderdata.finish();
     qDebug()<<"getproviderquery finished";
@@ -225,10 +239,10 @@ void model::getgenrequery(QString filmname,QSqlDatabase* db)
 
     while (getgenredata.next())
     {
-    qDebug() << getgenredata.value(0).toString();
+        qDebug() << getgenredata.value(0).toString();
 
-    genre* g = new genre(getgenredata.value(0).toString());
-    _controller->addgenre(g);
+        genre* g = new genre(getgenredata.value(0).toString());
+        _controller->addgenre(g);
     }
     getgenredata.finish();
     qDebug()<<"getproviderquery finished";
@@ -256,17 +270,17 @@ void model::getuserquery(QString filmname,QSqlDatabase* db)
 
     while (getuserdata.next())
     {
-    qDebug() << getuserdata.value(0).toString();
-    qDebug() << getuserdata.value(1).toString();
-    qDebug() << getuserdata.value(2).toString();
-    qDebug() << getuserdata.value(3).toString();
+        qDebug() << getuserdata.value(0).toString();
+        qDebug() << getuserdata.value(1).toString();
+        qDebug() << getuserdata.value(2).toString();
+        qDebug() << getuserdata.value(3).toString();
 
-     user* u = new user(getuserdata.value(0).toString(),getuserdata.value(1).toString(),
-                        getuserdata.value(2).toString(),getuserdata.value(3).toInt());
-     _controller->adduser(u);
-     }
-     getuserdata.finish();
-     qDebug()<<"getuserquery finished";
+        user* u = new user(getuserdata.value(0).toString(),getuserdata.value(1).toString(),
+                           getuserdata.value(2).toString(),getuserdata.value(3).toInt());
+        _controller->adduser(u);
+    }
+    getuserdata.finish();
+    qDebug()<<"getuserquery finished";
 }
 
 void model::insertratingquery(int benutzerid,int filmid,QString bewertung,int grade,QSqlDatabase* db)
@@ -318,7 +332,8 @@ void model::deleteratingquery(int benutzerid,QSqlDatabase* db)
     qDebug()<<"deleteratingdata finished";
 }
 
-void model::overallratingquery(QString filmname,QSqlDatabase* db){
+void model::overallratingquery(QString filmname,QSqlDatabase* db)
+{
     QSqlQuery getgradedata(*db);
     if(!getgradedata.prepare("\
         WITH NoteCounts AS (SELECT n.note AS Note, COUNT(b.note) AS NoteCount\
@@ -347,11 +362,155 @@ void model::overallratingquery(QString filmname,QSqlDatabase* db){
 
     while (getgradedata.next())
     {
-    qDebug() << getgradedata.value(0).toInt();
+        qDebug() << getgradedata.value(0).toInt();
 
-    grade* g = new grade(getgradedata.value(0).toInt());
-    _controller->addgrade(g);
+        grade* g = new grade(getgradedata.value(0).toInt());
+        _controller->addgrade(g);
     }
     getgradedata.finish();
     qDebug()<<"getgradequery finished";
 }
+
+QString model::generatinghashedpassword(QString password,QSqlDatabase* db)
+{
+    QSqlQuery generatingpassword(*db);
+    if(!generatingpassword.prepare("\
+        SELECT gen_salt('bf',8);\
+        ")){
+        qDebug() <<"Prepare failed: " << generatingpassword.lastError().text();
+        exit(1);
+        }
+
+    if(!generatingpassword.exec() ||!generatingpassword.next()){
+        qDebug() << "Execute failed: "<< generatingpassword.lastError().text();
+    }
+
+    QString salt = generatingpassword.value(0).toString();
+    qDebug() <<"salt: "<< salt;
+    QString hashedpassword;
+
+    if(!generatingpassword.prepare("\
+        SELECT crypt(:password, :salt);\
+        ")){
+        qDebug() <<"Prepare failed: " << generatingpassword.lastError().text();
+        exit(1);
+        }
+
+
+    generatingpassword.bindValue(":password", password);
+    generatingpassword.bindValue(":salt", salt);
+
+    if(generatingpassword.exec() && generatingpassword.next()) {
+        hashedpassword = generatingpassword.value(0).toString();
+    }
+    else{
+        qDebug() <<"Error hashing password: " <<generatingpassword.lastError();
+        return "Error";
+    }
+    qDebug()<<"generatinghashedpassword finished"<< "hashwert: "<<hashedpassword;
+    return hashedpassword;
+}
+
+
+void model::insertuserquery(int benutzerid,QString nachname,QString vorname,QString email,QString benutzername,QString password,QSqlDatabase* db)
+{
+    QString hashedpassword = generatinghashedpassword(password, db);
+    if (hashedpassword == "Error") {
+        qDebug() << "Error generating hashed password";
+        return;
+    }
+
+    QSqlQuery insertuserdata(*db);
+    if(!insertuserdata.prepare("\
+        INSERT INTO benutzer(benutzerid,nachname,vorname,email,benutzername,password)\
+        VALUES(:benutzerid,:nachname,:vorname,:email,:benutzername,:password)\
+        ")){
+        qDebug() <<"Prepare failed: " << insertuserdata.lastError().text();
+        //exit(1);
+        }
+
+    insertuserdata.bindValue(":benutzerid", benutzerid);
+    insertuserdata.bindValue(":nachname", nachname);
+    insertuserdata.bindValue(":vorname", vorname);
+    insertuserdata.bindValue(":email", email);
+    insertuserdata.bindValue(":benutzername", benutzername);
+    insertuserdata.bindValue(":password", hashedpassword);
+
+    if (!insertuserdata.exec()){
+       qDebug() << "Execute failed: "<< insertuserdata.lastError().text();
+       //exit(1);
+    }
+
+    insertuserdata.finish();
+    qDebug()<<"insertuserdata finished";
+
+    emit insertuserquerysuccessful();
+}
+
+bool model::checklogin(QString email, QString password,QSqlDatabase* db)
+{
+    QSqlQuery checkuserdata(*db);
+    if(!checkuserdata.prepare("\
+        SELECT password FROM benutzer\
+        WHERE email = :email\
+        ")){
+        qDebug() <<"Prepare failed: " << checkuserdata.lastError().text();
+        //exit(1);
+        }
+
+    checkuserdata.bindValue(":email", email);
+
+    if (!checkuserdata.exec() || !checkuserdata.next()) {
+        qDebug() << "User not found or query error:" << checkuserdata.lastError();
+        return false;
+    }
+
+    QString storedhash = checkuserdata.value(0).toString();
+
+    if(!checkuserdata.prepare("\
+        SELECT crypt(:plainpassword, :storedhash);\
+        ")){
+        qDebug() <<"Prepare failed: " << checkuserdata.lastError().text();
+        //exit(1);
+        }
+
+    checkuserdata.bindValue(":plainpassword", password);
+    checkuserdata.bindValue(":storedhash", storedhash);
+
+    if (!checkuserdata.exec() || !checkuserdata.next()) {
+        qDebug() << "Error checking password:" << checkuserdata.lastError();
+        return false;
+    }
+
+    QString enteredHash = checkuserdata.value(0).toString();
+    return storedhash == enteredHash;
+}
+
+
+void model::setcurrentuser(QString email,QSqlDatabase* db)
+{
+    QSqlQuery getuserdata(*db);
+    if(!getuserdata.prepare("\
+        Select benutzerid,vorname,nachname,benutzername\
+        FROM benutzer\
+        WHERE email = :email\
+        ")){
+        qDebug() <<"Prepare failed: " << getuserdata.lastError().text();
+        exit(1);
+        }
+        getuserdata.bindValue(":email",email);
+
+    if (!getuserdata.exec()){
+    qDebug() << "Execute failed: "<< getuserdata.lastError().text();
+    exit(1);
+    }
+
+    while (getuserdata.next()){
+        user* u = new user(getuserdata.value(0).toInt(),getuserdata.value(1).toString(),
+        getuserdata.value(2).toString(),email,getuserdata.value(3).toString());
+        _controller->setcurrentuser(u);
+    }
+    getuserdata.finish();
+    qDebug()<<"setcurrentuser finished";
+}
+

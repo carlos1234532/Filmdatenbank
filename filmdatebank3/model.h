@@ -24,11 +24,21 @@ public:
     void getgenrequery(QString filmname,QSqlDatabase* db);
     void getuserquery(QString filmname,QSqlDatabase* db);
     void overallratingquery(QString filmname,QSqlDatabase* db);
+    void setcurrentuser(QString email,QSqlDatabase* db);
 
     void insertratingquery(int benutzerid,int filmid,QString bewertung,int grade,QSqlDatabase* db);
     void deleteratingquery(int benutzerid,QSqlDatabase* db);
 
+    QString generatinghashedpassword(QString password,QSqlDatabase* db);
+    void insertuserquery(int benutzerID,QString nachname,QString vorname,QString email,QString benutzername,
+                         QString password,QSqlDatabase* db);
+    bool checklogin(QString username, QString password,QSqlDatabase* db);
+
+    int generaterandomuserid();
     QDir findpath(QString folder);
+
+signals:
+    void insertuserquerysuccessful();
 
 private:
 
