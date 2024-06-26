@@ -251,7 +251,7 @@ border-bottom-right-radius: 10px;
     </rect>
    </property>
    <property name="text">
-    <string>Back to Log in</string>
+    <string>back to Login</string>
    </property>
   </widget>
  </widget>

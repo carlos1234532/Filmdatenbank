@@ -14,8 +14,9 @@
 #include <QtCharts/QBarCategoryAxis>
 
 MainWindow::MainWindow(model* m, controller* c , QSqlDatabase* db, QWidget* parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    : QMainWindow(parent),
+    ui(new Ui::MainWindow),
+    _advancedsearch(new class advancedsearch(m,c,db,this))
 {
     ui->setupUi(this);
 
@@ -31,6 +32,7 @@ MainWindow::MainWindow(model* m, controller* c , QSqlDatabase* db, QWidget* pare
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete _advancedsearch;
 }
 
 void MainWindow::showdoverallratingdiagramm()
@@ -81,7 +83,7 @@ void MainWindow::showdoverallratingdiagramm()
 void MainWindow::deactivateview()
 {
     ui->listWidget->setVisible(false);
-    ui->SchauspielerLabel->setVisible(false);
+    //ui->SchauspielerLabel->setVisible(false);
     ui->Kundenrezensionen->setVisible(false);
     ui->BewertungInput->setVisible(false);
     ui->bewertungButton->setVisible(false);
@@ -111,6 +113,16 @@ void MainWindow::actions()
 
     connect(ui->NoteInput,&QLineEdit::textChanged, this, &MainWindow::checknoteinput);
     connect(ui->backtoLoginButton,&QPushButton::clicked, this, &MainWindow::backtologinwindow);
+
+    connect(ui->erweitereSucheCheckBox, &QCheckBox::clicked, this, &MainWindow::advancedsearch);
+}
+
+void MainWindow::advancedsearch()
+{
+    qDebug()<<"advancedsearch started";
+
+    ui->erweitereSucheCheckBox->setChecked(false);
+    _advancedsearch->show();
 }
 
 void MainWindow::backtologinwindow()
@@ -260,12 +272,12 @@ void MainWindow::showactordata()
     const QList<actor*>& actors = _controller->getactorcache();
     for (actor* a : actors) {
 
-        QString newEntry = "<p><b>" + a->getname() + "</b><br><img src='" + _model->findpath("actors").filePath(a->geturl()) + "' width='100' height='150'></p>";
+        QString newEntry = "<p><b>" + a->getname() + "</b><br><img src='" + _model->findpath("actors").filePath(a->geturl()) + "' width='140' height='210'></p>";
         QString newText = ui->OutputSchauspieler->toHtml() + newEntry;
         ui->OutputSchauspieler->setHtml(newText);
 
     }
-    ui->SchauspielerLabel->setVisible(true);
+    //ui->SchauspielerLabel->setVisible(true);
 }
 
 void MainWindow::showproviderdata()
@@ -273,7 +285,7 @@ void MainWindow::showproviderdata()
     const QList<provider*>& providers = _controller->getprovidercache();
     for (provider* p : providers) {
 
-        QString newEntry = "<p><b>" + p->getname() + "</b>" + "<br>"+"<img src='" + _model->findpath("provider").filePath(p->geturl()) + "' width='75' height='90'>"
+        QString newEntry = "<p><b>" + p->getname() + "</b>" + "<br>"+"<img src='" + _model->findpath("provider").filePath(p->geturl()) + "' width='110' height='130'>"
                 "<br>"+"Kaufen: "+ QString::number(p->getkaufpreis()) +"Euro<br>"+ "Leihen: " + QString::number(p->getleihpreis())+"Euro"+"</p>";
         QString newText = ui->OutputAnbieter->toHtml() + newEntry;
         ui->OutputAnbieter->setHtml(newText);
@@ -318,7 +330,7 @@ void MainWindow::clear()
     QPixmap pixmap = QPixmap();
     ui->filmcover->setPixmap(pixmap);
     ui->OutputSchauspieler->setText("");
-    ui->SchauspielerLabel->setVisible(false);
+    //ui->SchauspielerLabel->setVisible(false);
     ui->Kundenrezensionen->setVisible(false);
     ui->listWidget->clear();
     ui->listWidget->setVisible(false);

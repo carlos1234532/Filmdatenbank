@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 
     MainWindow w(m,c,&db);
     QObject::connect(&l, &login::loginsuccessfull, [&w](){
-        w.show();
+        w.showFullScreen();
     });
 
     QObject::connect(&w, &MainWindow::logoutsuccesfull, [&l]() {

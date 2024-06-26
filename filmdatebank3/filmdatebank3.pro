@@ -20,6 +20,7 @@ win32: {
 
 SOURCES += \
     actor.cpp \
+    advancedsearch.cpp \
     controller.cpp \
     genre.cpp \
     grade.cpp \
@@ -34,6 +35,7 @@ SOURCES += \
 
 HEADERS += \
     actor.h \
+    advancedsearch.h \
     controller.h \
     genre.h \
     grade.h \
@@ -46,6 +48,7 @@ HEADERS += \
     user.h
 
 FORMS += \
+    advancedsearch.ui \
     login.ui \
     mainwindow.ui \
     registerdia.ui

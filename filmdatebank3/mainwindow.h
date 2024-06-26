@@ -7,6 +7,7 @@
 #include "controller.h"
 #include <QObject>
 #include <QListWidget>
+#include <advancedsearch.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -33,6 +34,7 @@ private:
     model* _model;
     controller* _controller;
     QSqlDatabase* _database;
+    advancedsearch* _advancedsearch;
 
     void actions();
     void checknoteinput();
@@ -47,6 +49,7 @@ private:
 
     void loadcovers(QString fileName);
     void preselection();
+    void advancedsearch();
     void showpreselection();
     void listitemclicked(QListWidgetItem *item);
     void sizepreselectionwidget();
