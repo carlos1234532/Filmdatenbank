@@ -25,6 +25,8 @@ public:
     void getuserquery(QString filmname,QSqlDatabase* db);
     void overallratingquery(QString filmname,QSqlDatabase* db);
     void setcurrentuser(QString email,QSqlDatabase* db);
+    void getfilmseriesquery(QString filmreihename,QSqlDatabase* db);
+    void getproviderofferquery(QString anbieter,QSqlDatabase* db);
 
     void insertratingquery(int benutzerid,int filmid,QString bewertung,int grade,QSqlDatabase* db);
     void deleteratingquery(int benutzerid,QSqlDatabase* db);

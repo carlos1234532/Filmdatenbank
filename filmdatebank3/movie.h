@@ -14,6 +14,8 @@ public:
     movie(QString title);
     movie(int grade);
 
+    movie(QString title,QString url);
+
     //getter
     QString gettitle() { return _title; }
     int getduration() const { return _duration; }

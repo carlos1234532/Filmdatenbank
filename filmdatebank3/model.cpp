@@ -514,3 +514,89 @@ void model::setcurrentuser(QString email,QSqlDatabase* db)
     qDebug()<<"setcurrentuser finished";
 }
 
+void model::getfilmseriesquery(QString filmreihename,QSqlDatabase* db)
+{
+    QSqlQuery getfilmseriesdata(*db);
+    if(!getfilmseriesdata.prepare("\
+        Select film.name,film.url\
+        FROM film\
+        JOIN filmreihe ON film.filmreiheid = filmreihe.filmreiheid\
+        WHERE filmreihe.name = :filmreihe\
+        ")){
+        qDebug() <<"Prepare failed: " << getfilmseriesdata.lastError().text();
+        exit(1);
+        }
+        getfilmseriesdata.bindValue(":filmreihe",filmreihename);
+
+    if (!getfilmseriesdata.exec()){
+    qDebug() << "Execute failed: "<< getfilmseriesdata.lastError().text();
+    exit(1);
+    }
+
+    while (getfilmseriesdata.next()){
+
+        movie* m = new movie(getfilmseriesdata.value(0).toString(),getfilmseriesdata.value(1).toString());
+        _controller->addmovie(m);
+
+    }
+    getfilmseriesdata.finish();
+    qDebug()<<"getfilmseriesquery finished";
+}
+
+void model::getproviderofferquery(QString anbieter,QSqlDatabase* db)
+{
+    QSqlQuery getofferdata(*db);
+    if(!getofferdata.prepare("\
+        Select film.name,film.url\
+        FROM film\
+        JOIN filmanbieterzuordnung ON film.filmid = filmanbieterzuordnung.filmid\
+        JOIN anbieter ON filmanbieterzuordnung.anbieterid = anbieter.anbieterid\
+        WHERE anbieter.name = :anbieter\
+        ")){
+        qDebug() <<"Prepare failed: " << getofferdata.lastError().text();
+        exit(1);
+        }
+
+    getofferdata.bindValue(":anbieter",anbieter);
+
+    if (!getofferdata.exec()){
+        qDebug() << "Execute failed: "<< getofferdata.lastError().text();
+        exit(1);
+    }
+
+    while (getofferdata.next()){
+
+        movie* m = new movie(getofferdata.value(0).toString(),getofferdata.value(1).toString());
+        _controller->addmovie(m);
+    }
+
+    getofferdata.finish();
+    qDebug()<<"getofferquery finished";
+}
+
+                                  /*
+void model::getquery(QString filmreihename,QSqlDatabase* db)
+{
+    QSqlQuery getactordata(*db);
+    if(!getactordata.prepare("\
+        Select schauspieler.name,schauspieler.url\
+        FROM schauspieler\
+        JOIN
+        ")){
+        qDebug() <<"Prepare failed: " << getactordata.lastError().text();
+        exit(1);
+    }
+
+    if (!getactordata.exec()){
+    qDebug() << "Execute failed: "<< getactordata.lastError().text();
+    exit(1);
+    }
+
+    while (getactordata.next()){
+
+
+    }
+    getactordata.finish();
+    qDebug()<<"getallactorquery finished";
+}
+                              */

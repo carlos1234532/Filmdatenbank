@@ -122,6 +122,7 @@ void MainWindow::advancedsearch()
     qDebug()<<"advancedsearch started";
 
     ui->erweitereSucheCheckBox->setChecked(false);
+    clear();
     _advancedsearch->show();
 }
 

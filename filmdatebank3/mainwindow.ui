@@ -521,7 +521,7 @@
      </size>
     </property>
     <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarAsNeeded</enum>
+     <enum>Qt::ScrollBarAlwaysOff</enum>
     </property>
     <property name="horizontalScrollBarPolicy">
      <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -533,8 +533,8 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>-833</y>
-       <width>1512</width>
+       <y>0</y>
+       <width>1529</width>
        <height>2918</height>
       </rect>
      </property>
@@ -605,13 +605,13 @@ background-color:rgb(25, 63, 71);
              <rect>
               <x>10</x>
               <y>20</y>
-              <width>221</width>
+              <width>291</width>
               <height>51</height>
              </rect>
             </property>
             <property name="font">
              <font>
-              <pointsize>20</pointsize>
+              <pointsize>26</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -892,7 +892,7 @@ width: 40px;
         </property>
         <property name="styleSheet">
          <string notr="true">QFrame{
-background-color:rgb(117, 150, 181)
+background-color: rgb(255, 255, 255);
 }</string>
         </property>
         <property name="frameShape">
@@ -970,7 +970,7 @@ width: 40px;s
        <widget class="QFrame" name="frame_10">
         <property name="styleSheet">
          <string notr="true">QFrame{
-background-color:rgb(172, 219, 255);
+background-color:rgb(255, 255, 255);
 }</string>
         </property>
         <property name="frameShape">
@@ -1120,7 +1120,7 @@ border-bottom-right-radius: 10px;
         </property>
         <property name="styleSheet">
          <string notr="true">QFrame{
-background-color:rgb(57, 145, 162)
+/*background-color:rgb(129, 182, 239);*/
 }</string>
         </property>
         <property name="frameShape">
@@ -1826,6 +1826,12 @@ border-bottom-right-radius: 10px;
               </property>
               <property name="frameShape">
                <enum>QFrame::NoFrame</enum>
+              </property>
+              <property name="verticalScrollBarPolicy">
+               <enum>Qt::ScrollBarAlwaysOff</enum>
+              </property>
+              <property name="horizontalScrollBarPolicy">
+               <enum>Qt::ScrollBarAlwaysOff</enum>
               </property>
              </widget>
             </item>

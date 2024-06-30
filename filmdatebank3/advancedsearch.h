@@ -25,6 +25,9 @@ private:
 
     void actions();
     void leave();
+    void startquery();
+    void showdata();
+    void clear();
 };
 
 #endif // ADVANCEDSEARCH_H

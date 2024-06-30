@@ -18,7 +18,7 @@
     <rect>
      <x>0</x>
      <y>40</y>
-     <width>1111</width>
+     <width>1101</width>
      <height>581</height>
     </rect>
    </property>
@@ -39,8 +39,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1111</width>
-      <height>1257</height>
+      <width>1101</width>
+      <height>1281</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -191,7 +191,7 @@ border-bottom-right-radius: 10px;
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_7">
               <item>
-               <widget class="QLineEdit" name="AnbiterInput">
+               <widget class="QLineEdit" name="SchauspielerInput_2">
                 <property name="minimumSize">
                  <size>
                   <width>200</width>
@@ -213,12 +213,12 @@ border-bottom-right-radius: 10px;
 }</string>
                 </property>
                 <property name="placeholderText">
-                 <string>Filmreihen durchsuchen</string>
+                 <string>Schauspieler durchsuchen</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="filmreiheCheckBox_3">
+               <widget class="QCheckBox" name="schauspielerCheckBox">
                 <property name="text">
                  <string/>
                 </property>
@@ -255,7 +255,7 @@ border-bottom-right-radius: 10px;
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_6">
               <item>
-               <widget class="QLineEdit" name="SchauspielerInput">
+               <widget class="QLineEdit" name="AnbieterInput">
                 <property name="minimumSize">
                  <size>
                   <width>200</width>
@@ -277,12 +277,12 @@ border-bottom-right-radius: 10px;
 }</string>
                 </property>
                 <property name="placeholderText">
-                 <string>Filmreihen durchsuchen</string>
+                 <string>Anbieter durchsuchen</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="filmreiheCheckBox_2">
+               <widget class="QCheckBox" name="anbieterCheckBox">
                 <property name="text">
                  <string/>
                 </property>
@@ -396,16 +396,44 @@ border-bottom-right-radius: 10px;
       </widget>
      </item>
      <item>
-      <widget class="QTextEdit" name="textEdit">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>1000</height>
-        </size>
-       </property>
+      <widget class="QFrame" name="frame_13">
        <property name="frameShape">
-        <enum>QFrame::NoFrame</enum>
+        <enum>QFrame::StyledPanel</enum>
        </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QFrame" name="frame_16">
+          <property name="minimumSize">
+           <size>
+            <width>300</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="Ausgabe">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>1000</height>
+           </size>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </item>
     </layout>

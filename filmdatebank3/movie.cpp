@@ -15,3 +15,7 @@ movie::movie(int grade)
     : _grade(grade){
 
 }
+
+movie::movie(QString title,QString url)
+    : _title(std::move(title)),_url(std::move(url)){
+}
