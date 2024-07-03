@@ -382,7 +382,7 @@ void MainWindow::startquery()
     }
     _model->getproviderquery(film,_database);
     showproviderdata();
-    }
+
     _model->getgenrequery(film,_database);
     showgenredata();
 
@@ -393,6 +393,7 @@ void MainWindow::startquery()
     _model->overallratingquery(film,_database);
     if(!_controller->getgradecache().isEmpty()){
         showdoverallratingdiagramm();
+    }
     }
     //darf nicht wird für insertquery benötigt
     //ui->FilmInput->clear();
