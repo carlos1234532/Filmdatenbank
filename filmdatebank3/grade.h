@@ -10,7 +10,7 @@ class grade : public QObject
 public:
     grade(int grade);
 
-    int getgrade() { return _grade; }
+    int getGrade() { return _grade; }
 
 private:
     int _grade;

@@ -4,23 +4,23 @@ controller::controller()
 {
 }
 //movie methods
-void controller::addmovie(movie* movie) {
-    if(!exists(movie->gettitle())) {
+void controller::addMovie(movie* movie) {
+    if(!existMovie(movie->getTitle())) {
         _cache.push_back(movie);
     }
 }
 
-void controller::clearcache() {
+void controller::clearCache() {
     _cache.clear();
 }
 
-QList<movie*> controller::getcache() {
+QList<movie*> controller::getCache() {
     return _cache;
 }
 
-bool controller::exists(QString title){
+bool controller::existMovie(QString title){
 for (movie* m : _cache) {
-    if (m->gettitle() == title) {
+    if (m->getTitle() == title) {
         return true;
         }
     }
@@ -28,23 +28,23 @@ for (movie* m : _cache) {
 }
 
 //actor methods
-void controller::addactor(actor* actor) {
-    if(!exists(actor->getname())) {
+void controller::addActor(actor* actor) {
+    if(!existActor(actor->getName())) {
         _actorcache.push_back(actor);
     }
 }
 
-void controller::clearactorcache() {
+void controller::clearActorCache() {
     _actorcache.clear();
 }
 
-QList<actor*> controller::getactorcache() {
+QList<actor*> controller::getActorCache() {
     return _actorcache;
 }
 
-bool controller::existsactor(QString name){
+bool controller::existActor(QString name){
 for (actor* a : _actorcache) {
-    if (a->getname() == name) {
+    if (a->getName() == name) {
         return true;
         }
     }
@@ -52,23 +52,23 @@ for (actor* a : _actorcache) {
 }
 
 //actor methods
-void controller::addprovider(provider* provider) {
-    if(!exists(provider->getname())) {
+void controller::addProvider(provider* provider) {
+    if(!existProvider(provider->getName())) {
         _providercache.push_back(provider);
     }
 }
 
-void controller::clearprovidercache() {
+void controller::clearProviderCache() {
     _providercache.clear();
 }
 
-QList<provider*> controller::getprovidercache() {
+QList<provider*> controller::getProviderCache() {
     return _providercache;
 }
 
-bool controller::existprovider(QString name){
+bool controller::existProvider(QString name){
 for (provider* p : _providercache) {
-    if (p->getname() == name) {
+    if (p->getName() == name) {
         return true;
         }
     }
@@ -76,23 +76,23 @@ for (provider* p : _providercache) {
 }
 
 //genre methods
-void controller::addgenre(genre* genre) {
-    if(!exists(genre->getname())) {
+void controller::addGenre(genre* genre) {
+    if(!existGenre(genre->getName())) {
         _genrecache.push_back(genre);
     }
 }
 
-void controller::cleargenrecache() {
+void controller::clearGenreCache() {
     _genrecache.clear();
 }
 
-QList<genre*> controller::getgenrecache() {
+QList<genre*> controller::getGenreCache() {
     return _genrecache;
 }
 
-bool controller::existgenre(QString name){
+bool controller::existGenre(QString name){
 for (genre* g : _genrecache) {
-    if (g->getname() == name) {
+    if (g->getName() == name) {
         return true;
         }
     }
@@ -100,21 +100,21 @@ for (genre* g : _genrecache) {
 }
 
 //user methods
-void controller::adduser(user* user) {
+void controller::addUser(user* user) {
     _usercache.push_back(user);
 }
 
-void controller::clearusercache() {
+void controller::clearUserCache() {
     _usercache.clear();
 }
 
-QList<user*> controller::getusercache() {
+QList<user*> controller::getUserCache() {
     return _usercache;
 }
 
-bool controller::existuser(int userid){
+bool controller::existUser(int userid){
 for (user* u : _usercache) {
-    if (u->getuserid() == userid) {
+    if (u->getUserid() == userid) {
         return true;
         }
     }
@@ -122,21 +122,21 @@ for (user* u : _usercache) {
 }
 
 //grade methods
-void controller::addgrade(grade* grade) {
+void controller::addGrade(grade* grade) {
     _gradecache.push_back(grade);
 }
 
-void controller::cleargradecache() {
+void controller::clearGradeCache() {
     _gradecache.clear();
 }
 
-QList<grade*> controller::getgradecache() {
+QList<grade*> controller::getGradeCache() {
     return _gradecache;
 }
 
-bool controller::existgrade(int gradevalue){
+bool controller::existGrade(int gradevalue){
 for (grade* g : _gradecache) {
-    if (g->getgrade() == gradevalue) {
+    if (g->getGrade() == gradevalue) {
         return true;
         }
     }

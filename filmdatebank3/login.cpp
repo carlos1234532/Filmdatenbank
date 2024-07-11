@@ -25,9 +25,9 @@ login::~login()
 
 void login::actions()
 {
-    connect(ui->LogInButton, &QPushButton::clicked, this,&login::loginrequest);
-    connect(ui->RegisterButton, &QPushButton::clicked, this,&login::registerrequest);
-    connect(ui->emailInput,&QLineEdit::textChanged, this, &login::checkemailinput);
+    connect(ui->LogInButton, &QPushButton::clicked, this,&login::loginRequest);
+    connect(ui->RegisterButton, &QPushButton::clicked, this,&login::registerRequest);
+    connect(ui->emailInput,&QLineEdit::textChanged, this, &login::checkEmailInput);
 
     connect(ui->verlassenButton,&QPushButton::clicked, this, &login::leave);
 }
@@ -35,7 +35,7 @@ void login::leave(){
     this->close();
 }
 
-void login::checkemailinput()
+void login::checkEmailInput()
 {
     QRegularExpression regex(R"(^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$)");
     QValidator *validator = new QRegularExpressionValidator(regex, ui->emailInput);
@@ -48,15 +48,15 @@ void login::checkemailinput()
     }
 }
 
-void login::loginrequest()
+void login::loginRequest()
 {
     qDebug() <<"loginrequest() started";
 
-    if((ui->emailInput->text() != "" ||ui->PasswordInput->text() != "") && _model->checklogin(ui->emailInput->text(),ui->PasswordInput->text(),_database)){
-        _model->setcurrentuser(ui->emailInput->text(),_database);
+    if((ui->emailInput->text() != "" ||ui->PasswordInput->text() != "") && _model->checkLogin(ui->emailInput->text(),ui->PasswordInput->text(),_database)){
+        _model->setCurrentUser(ui->emailInput->text(),_database);
         ui->emailInput->clear();
         ui->PasswordInput->clear();
-        emit loginsuccessfull();
+        emit loginSuccessfull();
         accept();
     }
     else{
@@ -64,7 +64,7 @@ void login::loginrequest()
     }
 }
 
-void login::registerrequest()
+void login::registerRequest()
 {
     qDebug() <<"registerrequest() started";
 

@@ -18,45 +18,45 @@ public:
     controller();
 
     //mobie object methods
-    void addmovie(movie* movie);
-    void clearcache();
-    QList<movie*> getcache();
-    bool exists(QString tittle);
+    void addMovie(movie* movie);
+    void clearCache();
+    QList<movie*> getCache();
+    bool existMovie(QString tittle);
 
     //actor object methods
-    void addactor(actor* actor);
-    void clearactorcache();
-    QList<actor*> getactorcache();
-    bool existsactor(QString name);
+    void addActor(actor* actor);
+    void clearActorCache();
+    QList<actor*> getActorCache();
+    bool existActor(QString name);
 
     //provider object methods
-    void addprovider(provider* provider);
-    void clearprovidercache();
-    QList<provider*> getprovidercache();
-    bool existprovider(QString name);
+    void addProvider(provider* provider);
+    void clearProviderCache();
+    QList<provider*> getProviderCache();
+    bool existProvider(QString name);
 
     //genre object methods
-    void addgenre(genre* genre);
-    void cleargenrecache();
-    QList<genre*> getgenrecache();
-    bool existgenre(QString name);
+    void addGenre(genre* genre);
+    void clearGenreCache();
+    QList<genre*> getGenreCache();
+    bool existGenre(QString name);
 
     //user object methods
-    void adduser(user* user);
-    void clearusercache();
-    QList<user*> getusercache();
-    bool existuser(int userid);
+    void addUser(user* user);
+    void clearUserCache();
+    QList<user*> getUserCache();
+    bool existUser(int userid);
 
     //grade object methods
-    void addgrade(grade* grade);
-    void cleargradecache();
-    QList<grade*> getgradecache();
-    bool existgrade(int gradevalue);
+    void addGrade(grade* grade);
+    void clearGradeCache();
+    QList<grade*> getGradeCache();
+    bool existGrade(int gradevalue);
 
     //currentuser methoden
     //getter
-    user* getcurrentuser() { return _currentuser; }
-    user* setcurrentuser(user* u) { _currentuser = u; }
+    user* getCurrentUser() { return _currentuser; }
+    user* setCurrentUser(user* u) { _currentuser = u; }
 
 private:
     QList<movie*> _cache;

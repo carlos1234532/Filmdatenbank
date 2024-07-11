@@ -20,7 +20,7 @@ signals:
     void registrationSuccessful();
 
 private slots:
-    void registerbuttonclicked();
+    void registerButtonClicked();
 
 private:
     Ui::registerdia *ui;
@@ -29,12 +29,12 @@ private:
     QSqlDatabase* _database;
 
     void actions();
-    void insertsuccessful();
+    void insertSuccessful();
 
-    void checkbenutzernameinput();
-    void checknachnameinput();
-    void checkvornameinput();
-    void checkemailinput();
+    void checkBenutzernameInput();
+    void checkNachnameInput();
+    void checkVornameInput();
+    void checkEmailInput();
     void clear();
 };
 

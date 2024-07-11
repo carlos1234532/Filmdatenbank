@@ -20,12 +20,12 @@ MainWindow::MainWindow(model* m, controller* c , QSqlDatabase* db, QWidget* pare
 {
     ui->setupUi(this);
 
-    deactivateview();
+    deactivateView();
     _model = m;
     _controller = c;
     _database = db;
 
-    setuplistwidget();
+    setupListWidget();
     actions();
 }
 
@@ -35,15 +35,15 @@ MainWindow::~MainWindow()
     delete _advancedsearch;
 }
 
-void MainWindow::showdoverallratingdiagramm()
+void MainWindow::showOverallRatingDiagramm()
 {
-    deletechartcontainer();
+    deleteChartContainer();
 
     QList<int> values;
-    const QList<grade*>& grades = _controller->getgradecache();
+    const QList<grade*>& grades = _controller->getGradeCache();
     for (grade* g : grades) {
 
-        values << g->getgrade();
+        values << g->getGrade();
     }
     QStringList categories;
     categories << "Note 1" << "Note 2" << "Note 3" << "Note 4" << "Note 5" << "Note 6";
@@ -80,7 +80,7 @@ void MainWindow::showdoverallratingdiagramm()
     qDebug()<<"creatediagramm() finished";
 }
 
-void MainWindow::deactivateview()
+void MainWindow::deactivateView()
 {
     ui->listWidget->setVisible(false);
     //ui->SchauspielerLabel->setVisible(false);
@@ -90,34 +90,34 @@ void MainWindow::deactivateview()
     ui->NoteInput->setVisible(false);
 }
 
-void MainWindow::loadcovers(QString fileName)
+void MainWindow::loadCovers(QString fileName)
 {
-    QPixmap pixmap(_model->findpath("filmcover").filePath(fileName));
-    setpixmaptolabelsize(pixmap);
+    QPixmap pixmap(_model->findPath("filmcover").filePath(fileName));
+    setPixmapToLabelSize(pixmap);
     ui->filmcover->setPixmap(pixmap);
     qDebug()<<"loadpictures beendet";
 }
 
-void MainWindow::setpixmaptolabelsize(QPixmap &pixmap)
+void MainWindow::setPixmapToLabelSize(QPixmap &pixmap)
 {
     pixmap = pixmap.scaled(ui->filmcover->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
 }
 
 void MainWindow::actions()
 {
-    connect(ui->sucheButton, &QPushButton::clicked, this,&MainWindow::startquery);
+    connect(ui->sucheButton, &QPushButton::clicked, this,&MainWindow::startQuery);
     connect(ui->leerenButton, &QPushButton::clicked, this, &MainWindow::clear);
     connect(ui->FilmInput, &QLineEdit::textChanged, this ,&MainWindow::preselection);
-    connect(ui->listWidget, &QListWidget::itemClicked, this, &MainWindow::listitemclicked);
-    connect(ui->bewertungButton, &QPushButton::clicked, this, &MainWindow::insertratingquery);
+    connect(ui->listWidget, &QListWidget::itemClicked, this, &MainWindow::listItemClicked);
+    connect(ui->bewertungButton, &QPushButton::clicked, this, &MainWindow::insertRatingQuery);
 
-    connect(ui->NoteInput,&QLineEdit::textChanged, this, &MainWindow::checknoteinput);
-    connect(ui->backtoLoginButton,&QPushButton::clicked, this, &MainWindow::backtologinwindow);
+    connect(ui->NoteInput,&QLineEdit::textChanged, this, &MainWindow::checkNoteInput);
+    connect(ui->backtoLoginButton,&QPushButton::clicked, this, &MainWindow::backToLoginWindow);
 
-    connect(ui->erweitereSucheCheckBox, &QCheckBox::clicked, this, &MainWindow::advancedsearch);
+    connect(ui->erweitereSucheCheckBox, &QCheckBox::clicked, this, &MainWindow::advancedSearch);
 }
 
-void MainWindow::advancedsearch()
+void MainWindow::advancedSearch()
 {
     qDebug()<<"advancedsearch started";
 
@@ -126,14 +126,14 @@ void MainWindow::advancedsearch()
     _advancedsearch->show();
 }
 
-void MainWindow::backtologinwindow()
+void MainWindow::backToLoginWindow()
 {
     clear();
-    emit logoutsuccesfull();
+    emit logoutSuccesfull();
     this->close();
 }
 
-void MainWindow::checknoteinput()
+void MainWindow::checkNoteInput()
 {
     QRegularExpression regex("^[1-6]$");
     QValidator *validator = new QRegularExpressionValidator(regex, ui->NoteInput);
@@ -146,40 +146,40 @@ void MainWindow::checknoteinput()
     }
 }
 
-void MainWindow::insertratingquery()
+void MainWindow::insertRatingQuery()
 {
     if(!ui->BewertungInput->toPlainText().isEmpty() && (!ui->NoteInput->text().isEmpty() ||
         (ui->NoteInput->text().toInt() <= 6 && ui->NoteInput->text().toInt() >= 1))){
         int filmid;
-        const QList<movie*>& movies = _controller->getcache();
+        const QList<movie*>& movies = _controller->getCache();
         for (movie* m : movies) {
-            filmid = m->getfilmid();
+            filmid = m->getMovieId();
         }
-        _model->insertratingquery(_controller->getcurrentuser()->getuserid(),filmid,ui->BewertungInput->toPlainText(),ui->NoteInput->text().toInt(),_database);
+        _model->insertRatingQuery(_controller->getCurrentUser()->getUserid(),filmid,ui->BewertungInput->toPlainText(),ui->NoteInput->text().toInt(),_database);
 
-        _controller->clearusercache();
+        _controller->clearUserCache();
         ui->OutputBenutzerBewertung->setPlainText("");
 
-        _model->getuserquery(ui->FilmInput->text(),_database);
-        showuserdata();
+        _model->getUserQuery(ui->FilmInput->text(),_database);
+        showUserData();
 
-        _controller->cleargradecache();
-        _model->overallratingquery(ui->FilmInput->text(),_database);
-        showdoverallratingdiagramm();
+        _controller->clearGradeCache();
+        _model->overallRatingQuery(ui->FilmInput->text(),_database);
+        showOverallRatingDiagramm();
 
         ui->BewertungInput->clear();
         ui->NoteInput->clear();
     }
 }
 
-void MainWindow::listitemclicked(QListWidgetItem *item)
+void MainWindow::listItemClicked(QListWidgetItem *item)
 {
     ui->FilmInput->setText(item->text());
     ui->listWidget->setVisible(false);
-    updatefilminputborder(false);
+    updateFilmInputBorder(false);
 }
 
-void MainWindow::sizepreselectionwidget()
+void MainWindow::sizePreselectionWidget()
 {
     int itemcount = ui->listWidget->count();
     int widgetHeight = itemcount * ui->listWidget->sizeHintForRow(0);
@@ -193,51 +193,51 @@ void MainWindow::preselection()
 {
     qDebug() <<"preselection started";
     QString film = ui->FilmInput->text();
-    positionlistwidget();
+    positionListWidget();
     if(!film.isEmpty()){
-        _model->preselectionquery(film,_database);
+        _model->preselectionQuery(film,_database);
 
         if(ui->listWidget->count()){
             ui->listWidget->clear();
             ui->listWidget->setVisible(true);
             ui->FilmInput->setFocus();
-            updatefilminputborder(true);
+            updateFilmInputBorder(true);
         }
         else{
-            updatefilminputborder(false);
+            updateFilmInputBorder(false);
         }
-        showpreselection();
-        sizepreselectionwidget();
-        _controller->clearcache();
+        showPreselection();
+        sizePreselectionWidget();
+        _controller->clearCache();
     }
     else{
         ui->listWidget->clear();
         ui->listWidget->setVisible(false);
-        updatefilminputborder(false);
+        updateFilmInputBorder(false);
     }
 }
 
-void MainWindow::showpreselection()
+void MainWindow::showPreselection()
 {
-    const QList<movie*>& movies= _controller->getcache();
+    const QList<movie*>& movies= _controller->getCache();
         for (movie* m : movies) {
-            ui->listWidget->addItem(m->gettitle());;
+            ui->listWidget->addItem(m->getTitle());;
         }
 }
 
-void MainWindow::setuplistwidget()
+void MainWindow::setupListWidget()
 {
     ui->listWidget->setWindowFlags(Qt::ToolTip | Qt::FramelessWindowHint);
 }
 
-void MainWindow::positionlistwidget()
+void MainWindow::positionListWidget()
 {
     ui->listWidget->setFixedWidth(ui->FilmInput->width());
     QPoint pos = ui->FilmInput->mapToGlobal(QPoint(0, ui->FilmInput->height() - 8));
     ui->listWidget->move(pos);
 }
 
-void MainWindow::updatefilminputborder(bool showBottomBorder)
+void MainWindow::updateFilmInputBorder(bool showBottomBorder)
 {
     QString styleSheet = ui->FilmInput->styleSheet();
 
@@ -254,26 +254,26 @@ void MainWindow::updatefilminputborder(bool showBottomBorder)
     ui->FilmInput->setStyleSheet(styleSheet);
 }
 
-void MainWindow::showfilmdata()
+void MainWindow::showFilmData()
 {
-    const QList<movie*>& movies= _controller->getcache();
+    const QList<movie*>& movies= _controller->getCache();
     for (movie* m : movies) {
-        ui->OutputName->setText(m->gettitle());
-        ui->OutputDauer->setText("Dauer:\n"+QString::number(m->getduration())+" min");
-        ui->OutputErscheinungsjahr->setText("Erscheinungsjahr:\n"+QString::number(m->getrelease()));
-        ui->OutputProduzent->setText("Produzent:<br>"+m->getproducer());
-        ui->OutputBeschreibung->setText(m->getdescription());
+        ui->OutputName->setText(m->getTitle());
+        ui->OutputDauer->setText("Dauer:\n"+QString::number(m->getDuration())+" min");
+        ui->OutputErscheinungsjahr->setText("Erscheinungsjahr:\n"+QString::number(m->getRelease()));
+        ui->OutputProduzent->setText("Produzent:<br>"+m->getProducer());
+        ui->OutputBeschreibung->setText(m->getDescription());
 
-        loadcovers(m->geturl());
+        loadCovers(m->getUrl());
     }
 }
 
-void MainWindow::showactordata()
+void MainWindow::showActorData()
 {
-    const QList<actor*>& actors = _controller->getactorcache();
+    const QList<actor*>& actors = _controller->getActorCache();
     for (actor* a : actors) {
 
-        QString newEntry = "<p><b>" + a->getname() + "</b><br><img src='" + _model->findpath("actors").filePath(a->geturl()) + "' width='140' height='210'></p>";
+        QString newEntry = "<p><b>" + a->getName() + "</b><br><img src='" + _model->findPath("actors").filePath(a->getUrl()) + "' width='140' height='210'></p>";
         QString newText = ui->OutputSchauspieler->toHtml() + newEntry;
         ui->OutputSchauspieler->setHtml(newText);
 
@@ -281,38 +281,38 @@ void MainWindow::showactordata()
     //ui->SchauspielerLabel->setVisible(true);
 }
 
-void MainWindow::showproviderdata()
+void MainWindow::showProviderData()
 {
-    const QList<provider*>& providers = _controller->getprovidercache();
+    const QList<provider*>& providers = _controller->getProviderCache();
     for (provider* p : providers) {
 
-        QString newEntry = "<p><b>" + p->getname() + "</b>" + "<br>"+"<img src='" + _model->findpath("provider").filePath(p->geturl()) + "' width='110' height='130'>"
-                "<br>"+"Kaufen: "+ QString::number(p->getkaufpreis()) +"Euro<br>"+ "Leihen: " + QString::number(p->getleihpreis())+"Euro"+"</p>";
+        QString newEntry = "<p><b>" + p->getName() + "</b>" + "<br>"+"<img src='" + _model->findPath("provider").filePath(p->getUrl()) + "' width='110' height='130'>"
+                "<br>"+"Kaufen: "+ QString::number(p->getPurchasePrice()) +"Euro<br>"+ "Leihen: " + QString::number(p->getRentanlPrice())+"Euro"+"</p>";
         QString newText = ui->OutputAnbieter->toHtml() + newEntry;
         ui->OutputAnbieter->setHtml(newText);
     }
 }
 
-void MainWindow::showgenredata()
+void MainWindow::showGenreData()
 {
     QString newtext = "";
-    const QList<genre*>& genres = _controller->getgenrecache();
+    const QList<genre*>& genres = _controller->getGenreCache();
     for (genre* g : genres) {
-        newtext += (ui->OutputGenre->toPlainText()+g->getname() + "      ");
+        newtext += (ui->OutputGenre->toPlainText()+g->getName() + "      ");
     }
     ui->OutputGenre->setText(newtext);
 }
 
-void MainWindow::showuserdata()
+void MainWindow::showUserData()
 {
     QString imagepath = ":/rezensionen/";
     QString image ="user.jpg";
     QDir imageDir(imagepath);
 
-    const QList<user*>& users = _controller->getusercache();
+    const QList<user*>& users = _controller->getUserCache();
     for (user* u : users) {
-        QString newEntry = ("<img src='" + imageDir.filePath(image) + "' width='30' height='30'>" +"<b>   "+u->getfirstname()+
-                    " "+u->getlastname() + "</b><br>" + u->getrating() + "<br><br>" + "Note: "+QString::number(u->getgrade())+ "<br><br><br>");
+        QString newEntry = ("<img src='" + imageDir.filePath(image) + "' width='30' height='30'>" +"<b>   "+u->getFirstname()+
+                    " "+u->getLastname() + "</b><br>" + u->getRating() + "<br><br>" + "sNote: "+QString::number(u->getGrade())+ "<br><br><br>");
         QString newText = newEntry + ui->OutputBenutzerBewertung->toHtml();
         ui->OutputBenutzerBewertung->setHtml(newText);
     }
@@ -335,23 +335,23 @@ void MainWindow::clear()
     ui->Kundenrezensionen->setVisible(false);
     ui->listWidget->clear();
     ui->listWidget->setVisible(false);
-    updatefilminputborder(false);
+    updateFilmInputBorder(false);
     ui->OutputAnbieter->setText("");
     ui->OutputGenre->setText("");
     ui->OutputBenutzerBewertung->setText("");
-    deactivateview();
+    deactivateView();
 
-    _controller->clearcache();
-    _controller->clearactorcache();
-    _controller->clearprovidercache();
-    _controller->cleargenrecache();
-    _controller->clearusercache();
-    _controller->cleargradecache();
+    _controller->clearCache();
+    _controller->clearActorCache();
+    _controller->clearProviderCache();
+    _controller->clearGenreCache();
+    _controller->clearUserCache();
+    _controller->clearGradeCache();
 
-    deletechartcontainer();
+    deleteChartContainer();
 }
 
-void MainWindow::deletechartcontainer()
+void MainWindow::deleteChartContainer()
 {
 
     QWidget *chartcontainer = ui->chartcontainer;
@@ -367,33 +367,33 @@ void MainWindow::deletechartcontainer()
         delete layout;
     }
 }
-void MainWindow::startquery()
+void MainWindow::startQuery()
 {
     qDebug() <<"suchebutton wurde geklickt";
     clear();
 
     QString film = ui->FilmInput->text();
     if(!film.isEmpty()){
-    _model->getfilmdataquery(film,_database);
-    showfilmdata();
-    _model->getactorquery(film,_database);
-    if(!_controller->getactorcache().isEmpty()){
-        showactordata();
+    _model->getFilmDataQuery(film,_database);
+    showFilmData();
+    _model->getActorQuery(film,_database);
+    if(!_controller->getActorCache().isEmpty()){
+        showActorData();
     }
-    _model->getproviderquery(film,_database);
-    showproviderdata();
+    _model->getProviderQuery(film,_database);
+    showProviderData();
 
-    _model->getgenrequery(film,_database);
-    showgenredata();
+    _model->getGenreQuery(film,_database);
+    showGenreData();
 
-    _model->getuserquery(film,_database);
-    if(!_controller->getusercache().isEmpty()){
-        showuserdata();
+    _model->getUserQuery(film,_database);
+    if(!_controller->getUserCache().isEmpty()){
+        showUserData();
     }
-    _model->overallratingquery(film,_database);
-    if(!_controller->getgradecache().isEmpty()){
-        showdoverallratingdiagramm();
-    }
+    _model->overallRatingQuery(film,_database);
+        if(!_controller->getGradeCache().isEmpty()){
+            showOverallRatingDiagramm();
+        }
     }
     //darf nicht wird für insertquery benötigt
     //ui->FilmInput->clear();

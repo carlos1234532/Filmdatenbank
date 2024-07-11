@@ -11,12 +11,12 @@ public:
     user(int userid,QString name,QString lastname,QString email,QString benutzername);
     user(QString firstname,QString lastname,QString rating,int grade);
 
-    int getuserid() { return _userid; }
-    QString getfirstname() { return _firstname; }
-    QString getlastname() { return _lastname; }
-    QString getemail() { return _email; }
-    QString getrating() { return _rating; }
-    int getgrade() { return _grade; }
+    int getUserid() { return _userid; }
+    QString getFirstname() { return _firstname; }
+    QString getLastname() { return _lastname; }
+    QString getEmail() { return _email; }
+    QString getRating() { return _rating; }
+    int getGrade() { return _grade; }
 
 private:
     int _userid;

@@ -16,7 +16,7 @@ model::model(controller* c)
     _controller = c;
 }
 
-void model::connectionbuild(QSqlDatabase* db)
+void model::connectionBuild(QSqlDatabase* db)
 {
     // Datenbanktreiber laden
     db->setHostName("localhost");
@@ -35,7 +35,7 @@ void model::connectionbuild(QSqlDatabase* db)
     }
 }
 
-QDir model::findpath(QString imagesPath)
+QDir model::findPath(QString imagesPath)
 {
     QString executablePath = QCoreApplication::applicationDirPath();
     //qDebug()<<"ApplicationPath: " << executablePath;
@@ -48,7 +48,7 @@ QDir model::findpath(QString imagesPath)
     return imageDir;
 }
 
-int model::generaterandomuserid()
+int model::generateRandomUserID()
 {
     // Initialisiere den Zufallszahlengenerator mit der aktuellen Zeit
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
@@ -97,7 +97,7 @@ void model::customquery(QString Filmreihe,QSqlDatabase* db,QList<QString>* strin
     qDebug()<<"customquery finished";
 }
 */
-void model::preselectionquery(QString film,QSqlDatabase* db)
+void model::preselectionQuery(QString film,QSqlDatabase* db)
 {
     QSqlQuery getfilmdata(*db);
     if(!getfilmdata.prepare("\
@@ -118,13 +118,13 @@ void model::preselectionquery(QString film,QSqlDatabase* db)
     while (getfilmdata.next())
     {
         movie* m = new movie(getfilmdata.value(0).toString());
-        _controller->addmovie(m);
+        _controller->addMovie(m);
     }
     getfilmdata.finish();
     qDebug()<<"selectionquery finished";
 }
 
-void model::getfilmdataquery(QString filmname,QSqlDatabase* db)
+void model::getFilmDataQuery(QString filmname,QSqlDatabase* db)
 {
     QSqlQuery getfilmdata(*db);
     if(!getfilmdata.prepare("\
@@ -148,13 +148,13 @@ void model::getfilmdataquery(QString filmname,QSqlDatabase* db)
             ,0,getfilmdata.value(5).toInt(),getfilmdata.value(6).toString(),getfilmdata.value(2).toString(),
             getfilmdata.value(0).toInt());
 
-        _controller->addmovie(m);
+        _controller->addMovie(m);
     }
     getfilmdata.finish();
     qDebug()<<"getfilmdataquery finished";
 }
 
-void model::getactorquery(QString filmname,QSqlDatabase* db)
+void model::getActorQuery(QString filmname,QSqlDatabase* db)
 {
     QSqlQuery getactordata(*db);
     if(!getactordata.prepare("\
@@ -179,13 +179,13 @@ void model::getactorquery(QString filmname,QSqlDatabase* db)
         qDebug() << getactordata.value(0).toString();
 
         actor* a = new actor(getactordata.value(0).toString(),getactordata.value(1).toString());
-        _controller->addactor(a);
+        _controller->addActor(a);
     }
     getactordata.finish();
     qDebug()<<"getactorquery finished";
 }
 
-void model::getproviderquery(QString filmname,QSqlDatabase* db)
+void model::getProviderQuery(QString filmname,QSqlDatabase* db)
 {
     QSqlQuery getproviderdata(*db);
     if(!getproviderdata.prepare("\
@@ -211,13 +211,13 @@ void model::getproviderquery(QString filmname,QSqlDatabase* db)
 
         provider* p = new provider(getproviderdata.value(0).toString(),getproviderdata.value(1).toString(),
                                    getproviderdata.value(2).toInt(),getproviderdata.value(3).toInt());
-        _controller->addprovider(p);
+        _controller->addProvider(p);
     }
     getproviderdata.finish();
     qDebug()<<"getproviderquery finished";
 }
 
-void model::getgenrequery(QString filmname,QSqlDatabase* db)
+void model::getGenreQuery(QString filmname,QSqlDatabase* db)
 {
     QSqlQuery getgenredata(*db);
     if(!getgenredata.prepare("\
@@ -242,13 +242,13 @@ void model::getgenrequery(QString filmname,QSqlDatabase* db)
         qDebug() << getgenredata.value(0).toString();
 
         genre* g = new genre(getgenredata.value(0).toString());
-        _controller->addgenre(g);
+        _controller->addGenre(g);
     }
     getgenredata.finish();
     qDebug()<<"getproviderquery finished";
 }
 
-void model::getuserquery(QString filmname,QSqlDatabase* db)
+void model::getUserQuery(QString filmname,QSqlDatabase* db)
 {
     QSqlQuery getuserdata(*db);
     if(!getuserdata.prepare("\
@@ -277,15 +277,15 @@ void model::getuserquery(QString filmname,QSqlDatabase* db)
 
         user* u = new user(getuserdata.value(0).toString(),getuserdata.value(1).toString(),
                            getuserdata.value(2).toString(),getuserdata.value(3).toInt());
-        _controller->adduser(u);
+        _controller->addUser(u);
     }
     getuserdata.finish();
     qDebug()<<"getuserquery finished";
 }
 
-void model::insertratingquery(int benutzerid,int filmid,QString bewertung,int grade,QSqlDatabase* db)
+void model::insertRatingQuery(int benutzerid,int filmid,QString bewertung,int grade,QSqlDatabase* db)
 {
-    deleteratingquery(benutzerid,db);
+    deleteRatingQuery(benutzerid,db);
 
     QSqlQuery insertratingdata(*db);
     if(!insertratingdata.prepare("\
@@ -310,7 +310,7 @@ void model::insertratingquery(int benutzerid,int filmid,QString bewertung,int gr
     qDebug()<<"insertratingdata finished";
 }
 
-void model::deleteratingquery(int benutzerid,QSqlDatabase* db)
+void model::deleteRatingQuery(int benutzerid,QSqlDatabase* db)
 {
     QSqlQuery deleteratingdata(*db);
     if(!deleteratingdata.prepare("\
@@ -332,7 +332,7 @@ void model::deleteratingquery(int benutzerid,QSqlDatabase* db)
     qDebug()<<"deleteratingdata finished";
 }
 
-void model::overallratingquery(QString filmname,QSqlDatabase* db)
+void model::overallRatingQuery(QString filmname,QSqlDatabase* db)
 {
     QSqlQuery getgradedata(*db);
     if(!getgradedata.prepare("\
@@ -365,13 +365,13 @@ void model::overallratingquery(QString filmname,QSqlDatabase* db)
         qDebug() << getgradedata.value(0).toInt();
 
         grade* g = new grade(getgradedata.value(0).toInt());
-        _controller->addgrade(g);
+        _controller->addGrade(g);
     }
     getgradedata.finish();
     qDebug()<<"getgradequery finished";
 }
 
-QString model::generatinghashedpassword(QString password,QSqlDatabase* db)
+QString model::generatingHashedPassword(QString password,QSqlDatabase* db)
 {
     QSqlQuery generatingpassword(*db);
     if(!generatingpassword.prepare("\
@@ -412,9 +412,9 @@ QString model::generatinghashedpassword(QString password,QSqlDatabase* db)
 }
 
 
-void model::insertuserquery(int benutzerid,QString nachname,QString vorname,QString email,QString benutzername,QString password,QSqlDatabase* db)
+void model::insertUserQuery(int benutzerid,QString nachname,QString vorname,QString email,QString benutzername,QString password,QSqlDatabase* db)
 {
-    QString hashedpassword = generatinghashedpassword(password, db);
+    QString hashedpassword = generatingHashedPassword(password, db);
     if (hashedpassword == "Error") {
         qDebug() << "Error generating hashed password";
         return;
@@ -444,10 +444,10 @@ void model::insertuserquery(int benutzerid,QString nachname,QString vorname,QStr
     insertuserdata.finish();
     qDebug()<<"insertuserdata finished";
 
-    emit insertuserquerysuccessful();
+    emit insertUserQuerySuccessful();
 }
 
-bool model::checklogin(QString email, QString password,QSqlDatabase* db)
+bool model::checkLogin(QString email, QString password,QSqlDatabase* db)
 {
     QSqlQuery checkuserdata(*db);
     if(!checkuserdata.prepare("\
@@ -487,7 +487,7 @@ bool model::checklogin(QString email, QString password,QSqlDatabase* db)
 }
 
 
-void model::setcurrentuser(QString email,QSqlDatabase* db)
+void model::setCurrentUser(QString email,QSqlDatabase* db)
 {
     QSqlQuery getuserdata(*db);
     if(!getuserdata.prepare("\
@@ -508,13 +508,13 @@ void model::setcurrentuser(QString email,QSqlDatabase* db)
     while (getuserdata.next()){
         user* u = new user(getuserdata.value(0).toInt(),getuserdata.value(1).toString(),
         getuserdata.value(2).toString(),email,getuserdata.value(3).toString());
-        _controller->setcurrentuser(u);
+        _controller->setCurrentUser(u);
     }
     getuserdata.finish();
     qDebug()<<"setcurrentuser finished";
 }
 
-void model::getfilmseriesquery(QString filmreihename,QSqlDatabase* db)
+void model::getFilmSeriesQuery(QString filmreihename,QSqlDatabase* db)
 {
     QSqlQuery getfilmseriesdata(*db);
     if(!getfilmseriesdata.prepare("\
@@ -536,14 +536,14 @@ void model::getfilmseriesquery(QString filmreihename,QSqlDatabase* db)
     while (getfilmseriesdata.next()){
 
         movie* m = new movie(getfilmseriesdata.value(0).toString(),getfilmseriesdata.value(1).toString());
-        _controller->addmovie(m);
+        _controller->addMovie(m);
 
     }
     getfilmseriesdata.finish();
     qDebug()<<"getfilmseriesquery finished";
 }
 
-void model::getproviderofferquery(QString anbieter,QSqlDatabase* db)
+void model::getProviderOfferQuery(QString anbieter,QSqlDatabase* db)
 {
     QSqlQuery getofferdata(*db);
     if(!getofferdata.prepare("\
@@ -567,7 +567,7 @@ void model::getproviderofferquery(QString anbieter,QSqlDatabase* db)
     while (getofferdata.next()){
 
         movie* m = new movie(getofferdata.value(0).toString(),getofferdata.value(1).toString());
-        _controller->addmovie(m);
+        _controller->addMovie(m);
     }
 
     getofferdata.finish();

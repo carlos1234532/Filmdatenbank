@@ -17,16 +17,16 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 public slots:
-    void startquery();
+    void startQuery();
     void clear();
-    void insertratingquery();
+    void insertRatingQuery();
 
 public:
     MainWindow(model* m,controller* c,QSqlDatabase* db, QWidget* parent = nullptr);
     ~MainWindow();
 
 signals:
-    void logoutsuccesfull();
+    void logoutSuccesfull();
 
 private:
     Ui::MainWindow* ui;
@@ -37,30 +37,30 @@ private:
     advancedsearch* _advancedsearch;
 
     void actions();
-    void checknoteinput();
+    void checkNoteInput();
 
-    void showfilmdata();
-    void showactordata();
-    void showproviderdata();
-    void showgenredata();
-    void showuserdata();
-    void getfilmdataquery();
-    void backtologinwindow();
+    void showFilmData();
+    void showActorData();
+    void showProviderData();
+    void showGenreData();
+    void showUserData();
+    void getFilmDataQuery();
+    void backToLoginWindow();
 
-    void loadcovers(QString fileName);
+    void loadCovers(QString fileName);
     void preselection();
-    void advancedsearch();
-    void showpreselection();
-    void listitemclicked(QListWidgetItem *item);
-    void sizepreselectionwidget();
-    void setuplistwidget();
-    void positionlistwidget();
-    void updatefilminputborder(bool showBottomBorder);
-    void setpixmaptolabelsize(QPixmap &pixmap);
+    void advancedSearch();
+    void showPreselection();
+    void listItemClicked(QListWidgetItem *item);
+    void sizePreselectionWidget();
+    void setupListWidget();
+    void positionListWidget();
+    void updateFilmInputBorder(bool showBottomBorder);
+    void setPixmapToLabelSize(QPixmap &pixmap);
 
-    void deactivateview();
-    void showdoverallratingdiagramm();
+    void deactivateView();
+    void showOverallRatingDiagramm();
 
-    void deletechartcontainer();
+    void deleteChartContainer();
 };
 #endif // MAINWINDOW_H

@@ -25,8 +25,8 @@ private:
 
     void actions();
     void leave();
-    void startquery();
-    void showdata();
+    void startQuery();
+    void showData();
     void clear();
 };
 

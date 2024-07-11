@@ -21,18 +21,18 @@ registerdia::~registerdia()
 
 void registerdia::actions()
 {
-    connect(ui->RegisterButton, &QPushButton::clicked, this,&registerdia::registerbuttonclicked);
-    connect(_model, &model::insertuserquerysuccessful, this, &registerdia::insertsuccessful);
-    connect(ui->BacktoLoginButton,&QPushButton::clicked,this, &registerdia::insertsuccessful);
+    connect(ui->RegisterButton, &QPushButton::clicked, this,&registerdia::registerButtonClicked);
+    connect(_model, &model::insertUserQuerySuccessful, this, &registerdia::insertSuccessful);
+    connect(ui->BacktoLoginButton,&QPushButton::clicked,this, &registerdia::insertSuccessful);
 
-    connect(ui->BenutzernameInput,&QLineEdit::textChanged, this, &registerdia::checkbenutzernameinput);
-    connect(ui->NachnameInput,&QLineEdit::textChanged, this, &registerdia::checknachnameinput);
-    connect(ui->vornameInput,&QLineEdit::textChanged, this, &registerdia::checkvornameinput);
-    connect(ui->emailInput,&QLineEdit::textChanged, this, &registerdia::checkemailinput);
+    connect(ui->BenutzernameInput,&QLineEdit::textChanged, this, &registerdia::checkBenutzernameInput);
+    connect(ui->NachnameInput,&QLineEdit::textChanged, this, &registerdia::checkNachnameInput);
+    connect(ui->vornameInput,&QLineEdit::textChanged, this, &registerdia::checkVornameInput);
+    connect(ui->emailInput,&QLineEdit::textChanged, this, &registerdia::checkEmailInput);
 
 }
 
-void registerdia::checkbenutzernameinput()
+void registerdia::checkBenutzernameInput()
 {
     QRegularExpression regex("^[a-zA-Z0-9._]{3,20}$");
     QValidator *validator = new QRegularExpressionValidator(regex, ui->BenutzernameInput);
@@ -45,7 +45,7 @@ void registerdia::checkbenutzernameinput()
     }
 }
 
-void registerdia::checknachnameinput()
+void registerdia::checkNachnameInput()
 {
     QRegularExpression regex("^[a-zA-Z]+$");
     QValidator *validator = new QRegularExpressionValidator(regex, ui->NachnameInput);
@@ -58,7 +58,7 @@ void registerdia::checknachnameinput()
     }
 }
 
-void registerdia::checkemailinput()
+void registerdia::checkEmailInput()
 {
     QRegularExpression regex(R"(^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$)");
     QValidator *validator = new QRegularExpressionValidator(regex, ui->emailInput);
@@ -71,7 +71,7 @@ void registerdia::checkemailinput()
     }
 }
 
-void registerdia::checkvornameinput()
+void registerdia::checkVornameInput()
 {
     QRegularExpression regex("^[a-zA-Z]+$");
     QValidator *validator = new QRegularExpressionValidator(regex, ui->vornameInput);
@@ -85,11 +85,11 @@ void registerdia::checkvornameinput()
 }
 
 
-void registerdia::registerbuttonclicked()
+void registerdia::registerButtonClicked()
 {
     if(ui->NachnameInput->text() != "" && ui->vornameInput->text()!= ""&& ui->emailInput->text()!= "" &&
             ui->BenutzernameInput->text()!= "" && ui->passwordInput->text()!= ""){
-    _model->insertuserquery(_model->generaterandomuserid(),ui->NachnameInput->text(),ui->vornameInput->text(),ui->emailInput->text(),
+    _model->insertUserQuery(_model->generateRandomUserID(),ui->NachnameInput->text(),ui->vornameInput->text(),ui->emailInput->text(),
                             ui->BenutzernameInput->text(),ui->passwordInput->text(),_database);
     }
     else{
@@ -97,7 +97,7 @@ void registerdia::registerbuttonclicked()
     }
 }
 
-void registerdia::insertsuccessful()
+void registerdia::insertSuccessful()
 {
     clear();
     emit registrationSuccessful();

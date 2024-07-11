@@ -10,8 +10,8 @@ class actor : public QObject
 public:
     actor(QString name,QString url);
 
-    QString getname() { return _name; }
-    QString geturl() { return _url; }
+    QString getName() { return _name; }
+    QString getUrl() { return _url; }
 
 private:
     QString _name;

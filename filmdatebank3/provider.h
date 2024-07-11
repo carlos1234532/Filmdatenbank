@@ -11,10 +11,10 @@ class provider : public QObject
 public:
     provider(QString name,QString url,int kaufpreis,int leihpreis);
 
-    QString getname() { return _name; }
-    QString geturl() { return _url; }
-    int getkaufpreis() { return _kaufpreis; }
-    int getleihpreis() { return _leihpreis; }
+    QString getName() { return _name; }
+    QString getUrl() { return _url; }
+    int getPurchasePrice() { return _kaufpreis; }
+    int getRentanlPrice() { return _leihpreis; }
 
 private:
     QString _name;

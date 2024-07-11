@@ -10,7 +10,7 @@ class genre : public QObject
 public:
     genre(QString name);
 
-    QString getname() { return _name; }
+    QString getName() { return _name; }
 
 private:
     QString _name;

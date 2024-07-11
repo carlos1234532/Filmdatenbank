@@ -22,7 +22,7 @@ advancedsearch::~advancedsearch()
 void advancedsearch::actions()
 {
     connect(ui->verlassenButton,&QPushButton::clicked,this, &advancedsearch::leave);
-    connect(ui->sucheButton,&QPushButton::clicked,this,&advancedsearch::startquery);
+    connect(ui->sucheButton,&QPushButton::clicked,this,&advancedsearch::startQuery);
     connect(ui->leerenButton,&QPushButton::clicked,this,&advancedsearch::clear);
 }
 
@@ -31,18 +31,18 @@ void advancedsearch::leave()
     this->close();
 }
 
-void advancedsearch::startquery()
+void advancedsearch::startQuery()
 {
     clear();
     if(ui->filmreiheCheckBox->isChecked() && !ui->schauspielerCheckBox->isChecked() && !ui->anbieterCheckBox->isChecked()){
-        _model->getfilmseriesquery(ui->FilmnreiheInput->text(),_database);
-        showdata();
+        _model->getFilmSeriesQuery(ui->FilmnreiheInput->text(),_database);
+        showData();
     }
     else if (!ui->filmreiheCheckBox->isChecked() && ui->schauspielerCheckBox->isChecked() && !ui->anbieterCheckBox->isChecked()){
     }
     else if (!ui->filmreiheCheckBox->isChecked() && !ui->schauspielerCheckBox->isChecked() && ui->anbieterCheckBox->isChecked()){
-        _model->getproviderofferquery(ui->AnbieterInput->text(),_database);
-        showdata();
+        _model->getProviderOfferQuery(ui->AnbieterInput->text(),_database);
+        showData();
     }
 }
 
@@ -50,15 +50,15 @@ void advancedsearch::clear()
 {
     ui->Ausgabe->clear();
 
-    _controller->clearcache();
+    _controller->clearCache();
 }
 
 //for filmseries and provider offer overview
-void advancedsearch::showdata()
+void advancedsearch::showData()
 {
-    const QList<movie*>& movies= _controller->getcache();
+    const QList<movie*>& movies= _controller->getCache();
     for (movie* m : movies) {
-        QString newEntry = "<p><b>" + m->gettitle() + "</b><br><img src='" + _model->findpath("filmcover").filePath(m->geturl()) + "' width='140' height='210'></p>";
+        QString newEntry = "<p><b>" + m->getTitle() + "</b><br><img src='" + _model->findPath("filmcover").filePath(m->getUrl()) + "' width='140' height='210'></p>";
         QString newText = ui->Ausgabe->toHtml() + newEntry;
         ui->Ausgabe->setHtml(newText);
     }

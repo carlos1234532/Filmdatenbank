@@ -20,11 +20,11 @@ public:
     ~login();
 
 signals:
-    void loginsuccessfull();
+    void loginSuccessfull();
 
 private slots:
-    void loginrequest();
-    void registerrequest();
+    void loginRequest();
+    void registerRequest();
 
 private:
     Ui::login *ui;
@@ -34,7 +34,7 @@ private:
     QSqlDatabase* _database;
 
     void actions();
-    void checkemailinput();
+    void checkEmailInput();
     void leave();
 };
 
